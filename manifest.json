@@ -1,0 +1,7 @@
+{
+  "name": "Layout Maker",
+  "id": "939173063111899081",
+  "api": "1.0.0",
+  "main": "dist/code.js",
+  "ui": "dist/ui.html"
+}

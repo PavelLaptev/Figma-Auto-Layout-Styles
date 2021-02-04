@@ -1,0 +1,34 @@
+@import "./font-face";
+
+:root {
+  --active-clr: #5f48f9;
+  --error-clr: #ff3f3f;
+  //
+  --small-radius: 4px;
+  --middle-radius: 8px;
+  --large-radius: 20px;
+  //
+  --controls-height: 20px;
+}
+
+*,
+*:before,
+*:after {
+  user-select: none;
+  box-sizing: border-box;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  overflow: hidden;
+  font-family: "Inter", sans-serif;
+  font-size: 12px;
+  margin: 0;
+  background-color: var(--base-clr);
+}
+
+hr {
+  margin: 16px 0;
+}
