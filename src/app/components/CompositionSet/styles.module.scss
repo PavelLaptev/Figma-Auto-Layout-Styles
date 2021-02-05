@@ -1,0 +1,19 @@
+.wrap {
+  display: flex;
+  flex-direction: column;
+}
+
+.name {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: var(--spacer-s);
+}
+
+.inputGroup {
+  display: flex;
+}
+
+.input {
+  margin-bottom: var(--spacer-s);
+  margin-right: var(--spacer-s);
+}

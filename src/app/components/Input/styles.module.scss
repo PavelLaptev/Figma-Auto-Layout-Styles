@@ -1,0 +1,14 @@
+.wrap {
+  display: flex;
+  flex-direction: column;
+}
+
+.label {
+  width: 100%;
+  margin-bottom: var(--spacer-s);
+}
+
+.input {
+  width: 100%;
+  border: none;
+}

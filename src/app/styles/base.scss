@@ -8,7 +8,9 @@
   --middle-radius: 8px;
   --large-radius: 20px;
   //
-  --controls-height: 20px;
+  --spacer-s: 8px;
+  --spacer-m: 16px;
+  --spacer-l: 24px;
 }
 
 *,
@@ -25,10 +27,10 @@ body {
   overflow: hidden;
   font-family: "Inter", sans-serif;
   font-size: 12px;
-  margin: 0;
+  margin: 20px;
   background-color: var(--base-clr);
 }
 
 hr {
-  margin: 16px 0;
+  margin: var(--spacer-l) 0;
 }
