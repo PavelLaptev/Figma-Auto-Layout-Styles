@@ -1,19 +1,35 @@
 .wrap {
   display: flex;
   flex-direction: column;
+  padding: var(--spacer-l);
+  border-radius: var(--radius-m);
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  margin-bottom: var(--spacer-m);
 }
 
-.name {
-  font-size: 18px;
-  font-weight: bold;
-  margin-bottom: var(--spacer-s);
-}
-
-.inputGroup {
+.header {
   display: flex;
+  &_name {
+    input {
+      font-weight: bold;
+      font-size: 14px !important;
+    }
+  }
+}
+
+.section {
+  display: flex;
+  margin-bottom: var(--spacer-s);
 }
 
 .input {
-  margin-bottom: var(--spacer-s);
-  margin-right: var(--spacer-s);
+  flex: 1;
+  margin-bottom: var(--spacer-m);
+  margin-right: var(--spacer-m);
+}
+
+.button {
+  border: none;
+  border-radius: var(--radius-s);
+  padding: var(--spacer-m);
 }

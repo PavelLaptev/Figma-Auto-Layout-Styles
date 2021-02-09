@@ -4,11 +4,24 @@
 }
 
 .label {
+  font-family: "Inter", sans-serif;
+  font-size: 12px;
+  transform: translateX(var(--spacer-s));
+  opacity: 0.5;
   width: 100%;
+  font-size: 12px;
   margin-bottom: var(--spacer-s);
 }
 
 .input {
+  font-family: "Inter", sans-serif;
+  font-size: 12px;
+  padding: var(--spacer-s);
   width: 100%;
   border: none;
+  outline: none;
+  border-radius: var(--radius-s);
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+  }
 }

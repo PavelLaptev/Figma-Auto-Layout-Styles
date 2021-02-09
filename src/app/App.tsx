@@ -6,23 +6,41 @@ import CompositionSet from "./components/CompositionSet";
 const App = ({}) => {
   const [config, setConfig] = React.useState([
     {
-      name: "Composition S",
+      name: "Composition Small",
+      hookName: "🐶CompS",
+      description: "Some text",
       space: {
-        top: 16,
+        top: 0,
         left: 0,
-        bottom: 16,
-        right: 0
+        bottom: 0,
+        right: 0,
+        between: 16
       }
-    },
+    } as ConfigTypes,
     {
-      name: "Composition M",
+      name: "Composition Medium",
+      hookName: "🦊CompM",
+      description: "Some text",
       space: {
-        top: 40,
-        left: 20,
-        bottom: 28,
-        right: 28
+        top: 0,
+        left: 0,
+        bottom: 0,
+        right: 0,
+        between: 24
       }
-    }
+    } as ConfigTypes,
+    {
+      name: "Composition Large",
+      hookName: "🐻CompL",
+      description: "Some text",
+      space: {
+        top: 0,
+        left: 0,
+        bottom: 0,
+        right: 0,
+        between: 32
+      }
+    } as ConfigTypes
   ]);
 
   ////////////////////////////////////////////////////////////////
@@ -32,29 +50,25 @@ const App = ({}) => {
     parent.postMessage({ pluginMessage: { type: "apply" } }, "*");
   };
 
-  const handleApply = item => {
-    console.log(item.space);
-  };
-
   return (
     <div>
-      <h1>Layout</h1>
-      <hr />
-
+      <h2>Compositions</h2>
       {config.map((item, i) => {
         return (
           <CompositionSet
             key={item.name}
             name={item.name}
+            hookName={item.hookName}
+            description={item.description}
             space={{
               top: item.space.top,
               right: item.space.right,
               bottom: item.space.bottom,
-              left: item.space.left
+              left: item.space.left,
+              between: item.space.between
             }}
-            onClick={() => handleApply(item)}
             onChange={data => {
-              console.log({
+              setConfig({
                 ...config,
                 [i]: { ...data }
               });
@@ -63,7 +77,7 @@ const App = ({}) => {
         );
       })}
 
-      <button onClick={handleNewComposition}>Add new composition</button>
+      <button onClick={handleNewComposition}>Update all by hooks</button>
     </div>
   );
 };

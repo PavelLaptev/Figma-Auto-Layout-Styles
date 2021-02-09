@@ -2,12 +2,9 @@
 // Please do not change this file!
 interface CssExports {
   button: string;
-  button_active: string;
-  closeButton: string;
-  header: string;
-  settings: string;
-  settingsIcon: string;
-  wrapper: string;
+  icon: string;
+  input: string;
+  text: string;
 }
 export const cssExports: CssExports;
 export default cssExports;

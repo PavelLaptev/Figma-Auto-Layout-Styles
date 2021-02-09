@@ -3,7 +3,7 @@ import styles from "./styles.module.scss";
 
 interface Props {
   className?: string;
-  label: string;
+  label?: string;
   value: any;
   type?: string;
   onChange?: (e) => void;
@@ -18,8 +18,10 @@ const Input: React.FunctionComponent<Props> = props => {
   };
 
   return (
-    <div className={`${styles.wrap} ${props.className}`}>
-      <label className={styles.label}>{props.label}</label>
+    <div className={`${styles.wrap} ${props.className} `}>
+      {props.label ? (
+        <label className={styles.label}>{props.label}</label>
+      ) : null}
       <input
         className={styles.input}
         type={props.type}
@@ -33,6 +35,7 @@ const Input: React.FunctionComponent<Props> = props => {
 Input.defaultProps = {
   className: "",
   type: "number",
+  label: null,
   onChange: () => {}
 } as Partial<Props>;
 
