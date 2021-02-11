@@ -1,4 +1,4 @@
-interface ConfigTypes {
+interface CompositionTypes {
   name: string;
   hookName: string;
   description: string;
@@ -9,4 +9,12 @@ interface ConfigTypes {
     left: number;
     between: number;
   };
+}
+
+interface ConfigTypes {
+  about: {
+    version: string;
+    name: string;
+  };
+  compositions: Array<CompositionTypes>;
 }

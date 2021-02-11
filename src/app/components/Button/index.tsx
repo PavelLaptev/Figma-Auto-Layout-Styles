@@ -32,7 +32,7 @@ const Button: React.FunctionComponent<Props> = props => {
       className={`${styles.button} ${props.className}`}
       ref={props.reference}
     >
-      {props.type === "input" ? (
+      {props.type === "file" ? (
         <input
           type="file"
           className={styles.input}

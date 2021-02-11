@@ -1,0 +1,15 @@
+.divider {
+  width: 100%;
+  height: 2px;
+  margin: var(--spacer-l) 0;
+  border: none;
+  background-image: linear-gradient(
+    90deg,
+    var(--dark-clr),
+    var(--dark-clr) 2px,
+    transparent 2px,
+    transparent 100%
+  );
+  opacity: 0.2;
+  background-size: 6px 2px;
+}

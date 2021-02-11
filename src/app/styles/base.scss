@@ -1,8 +1,12 @@
 @import "./font-face";
 
 :root {
-  --active-clr: #5f48f9;
-  --error-clr: #ff3f3f;
+  //
+  --white-clr: #fff;
+  --light-clr: #eff2f3;
+  --middle-clr: #e2e5e5;
+  --semi-dark-clr: #c7cdcf;
+  --dark-clr: #353738;
   //
   --radius-s: 4px;
   --radius-m: 8px;
@@ -12,6 +16,8 @@
   --spacer-m: 8px;
   --spacer-l: 16px;
   --spacer-xl: 24px;
+  //
+  --control-height: 32px;
 }
 
 *,
@@ -28,9 +34,5 @@ body {
   font-family: "Inter", sans-serif;
   font-size: 12px;
   margin: 16px;
-  background-color: var(--base-clr);
-}
-
-hr {
-  margin: var(--spacer-l) 0;
+  background-color: var(--light-clr);
 }

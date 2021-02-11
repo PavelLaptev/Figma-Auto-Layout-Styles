@@ -1,0 +1,28 @@
+.wrap {
+  display: flex;
+  flex-direction: column;
+  padding: calc(var(--spacer-s) * 3);
+  border-radius: var(--radius-m);
+  border: 1px solid var(--middle-clr);
+  margin-bottom: var(--spacer-m);
+  transition: all 0.1s ease;
+  background-color: var(--white-clr);
+  &:hover,
+  &:focus {
+    border: 1px solid var(--semi-dark-clr);
+  }
+  animation-duration: 1s;
+  animation-name: newCard;
+  animation-iteration-count: 1;
+}
+
+@keyframes newCard {
+  from {
+    border: 1px solid var(--dark-clr);
+    transform: translateY(-4px);
+  }
+  to {
+    border: 1px solid var(--middle-clr);
+    transform: translateY(0);
+  }
+}

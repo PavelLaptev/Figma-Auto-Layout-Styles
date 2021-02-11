@@ -16,12 +16,18 @@
 .input {
   font-family: "Inter", sans-serif;
   font-size: 12px;
+  font-weight: 500;
   padding: var(--spacer-s);
+  height: var(--control-height);
   width: 100%;
   border: none;
   outline: none;
   border-radius: var(--radius-s);
   &:hover {
     background-color: rgba(0, 0, 0, 0.05);
+  }
+  &[type="number"]::-webkit-inner-spin-button {
+    width: 20px;
+    height: 20px;
   }
 }

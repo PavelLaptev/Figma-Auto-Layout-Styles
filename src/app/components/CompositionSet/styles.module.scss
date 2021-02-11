@@ -1,18 +1,9 @@
-.wrap {
-  display: flex;
-  flex-direction: column;
-  padding: var(--spacer-l);
-  border-radius: var(--radius-m);
-  border: 1px solid rgba(0, 0, 0, 0.3);
-  margin-bottom: var(--spacer-m);
-}
-
 .header {
   display: flex;
   &_name {
     input {
       font-weight: bold;
-      font-size: 14px !important;
+      font-size: 14px;
     }
   }
 }
@@ -26,10 +17,14 @@
   flex: 1;
   margin-bottom: var(--spacer-m);
   margin-right: var(--spacer-m);
+  &:last-child {
+    margin-right: 0;
+  }
 }
 
-.button {
-  border: none;
-  border-radius: var(--radius-s);
-  padding: var(--spacer-m);
+.space {
+  input {
+    font-size: 14px;
+    font-weight: 600;
+  }
 }

@@ -1,3 +1,17 @@
 .app {
   position: relative;
 }
+
+.header {
+  display: flex;
+  align-items: center;
+}
+
+.title {
+  flex: 1;
+  input {
+    background-color: var(--light-clr);
+    font-size: 16px;
+    font-weight: bold;
+  }
+}

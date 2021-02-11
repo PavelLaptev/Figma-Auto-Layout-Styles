@@ -1,8 +1,10 @@
 import * as React from "react";
 import styles from "./styles.module.scss";
+import CompositionCard from "../CompositionCard";
+import Button from "../Button";
 import Input from "../Input";
 
-interface Props extends ConfigTypes {
+interface Props extends CompositionTypes {
   onClick?: () => void;
   onChange?: (data) => void;
 }
@@ -19,12 +21,15 @@ const CompositionSet: React.FunctionComponent<Props> = props => {
       left: props.space.left,
       between: props.space.between
     }
-  } as ConfigTypes);
+  } as CompositionTypes);
 
   const handleApply = () => {
     parent.postMessage(
       {
-        pluginMessage: { type: "apply-composition", data: data as ConfigTypes }
+        pluginMessage: {
+          type: "apply-composition",
+          data: data as CompositionTypes
+        }
       },
       "*"
     );
@@ -32,7 +37,7 @@ const CompositionSet: React.FunctionComponent<Props> = props => {
   };
 
   return (
-    <div className={styles.wrap}>
+    <CompositionCard>
       <div className={styles.header}>
         <Input
           className={`${styles.input} ${styles.header_name}`}
@@ -41,25 +46,7 @@ const CompositionSet: React.FunctionComponent<Props> = props => {
         />
       </div>
 
-      <div className={styles.section}>
-        <Input
-          className={styles.input}
-          label="Hook Name"
-          type={"text"}
-          value={data.hookName}
-        />
-      </div>
-
-      <div className={styles.section}>
-        <Input
-          className={styles.input}
-          label="Description"
-          type={"text"}
-          value={data.description}
-        />
-      </div>
-
-      <form className={styles.section}>
+      <form className={`${styles.section} ${styles.space}`}>
         <Input
           className={styles.input}
           value={data.space.between}
@@ -156,11 +143,27 @@ const CompositionSet: React.FunctionComponent<Props> = props => {
       </form>
 
       <div className={styles.section}>
-        <button className={styles.button} onClick={handleApply}>
-          Apply
-        </button>
+        <Input
+          className={styles.input}
+          label="Hook Name"
+          type={"text"}
+          value={data.hookName}
+        />
       </div>
-    </div>
+
+      <div className={styles.section}>
+        <Input
+          className={styles.input}
+          label="Description"
+          type={"text"}
+          value={data.description}
+        />
+      </div>
+
+      <div className={styles.section}>
+        <Button text="Apply" onClick={handleApply} />
+      </div>
+    </CompositionCard>
   );
 };
 
