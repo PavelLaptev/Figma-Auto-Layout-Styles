@@ -1,5 +1,8 @@
 import * as React from "react";
 import styles from "./app.module.scss";
+
+import { generateRandomID, downloadJSON, getRandomKey } from "../utils";
+
 import Button from "./components/Button";
 import CompositionCard from "./components/CompositionCard";
 import CompositionSet from "./components/CompositionSet";
@@ -8,6 +11,7 @@ import Divider from "./components/Divider";
 
 // Application
 const App = ({}) => {
+  const [appKey, setAppKey] = React.useState(getRandomKey());
   const [config, setConfig] = React.useState({
     about: {
       version: "1.0.0",
@@ -18,6 +22,7 @@ const App = ({}) => {
         name: "Composition Small",
         hookName: "🐶CompS",
         description: "Some text",
+        lock: false,
         space: {
           top: 0,
           left: 0,
@@ -30,6 +35,7 @@ const App = ({}) => {
         name: "Composition Medium",
         hookName: "🦊CompM",
         description: "Some text",
+        lock: true,
         space: {
           top: 0,
           left: 0,
@@ -42,6 +48,7 @@ const App = ({}) => {
         name: "Composition Large",
         hookName: "🐻CompL",
         description: "Some text",
+        lock: false,
         space: {
           top: 0,
           left: 0,
@@ -53,20 +60,19 @@ const App = ({}) => {
     ]
   } as ConfigTypes);
 
-  ////////////////////////////////////////////////////////////////
-  //////////////////////////// RENDER ////////////////////////////
-  ////////////////////////////////////////////////////////////////
-  const handleNewComposition = () => {
-    console.log(config);
+  // ADD NEW COMPOSITION
+  let uniqueID = generateRandomID();
 
+  const handleNewComposition = () => {
     setConfig({
       ...config,
       compositions: [
         ...config.compositions,
         {
-          name: "New composition",
-          hookName: "🐻CompNew",
+          name: `New Composition ${uniqueID}`,
+          hookName: uniqueID,
           description: "Some text",
+          lock: false,
           space: {
             top: 0,
             left: 0,
@@ -79,11 +85,46 @@ const App = ({}) => {
     });
   };
 
+  // SAVE CONFIG FILE
+  const handleSaveConfigFile = () => {
+    downloadJSON(config, `${config.about.name}.json`, "application/json");
+  };
+
+  // UPLOAD CONFIG FILE
+  const handleUploadConfigFile = e => {
+    let reader = new FileReader();
+    reader.readAsText(e.target.files[0]);
+
+    reader.onload = () => {
+      let result = JSON.parse(reader.result as string);
+      setConfig(result);
+      setAppKey(getRandomKey());
+    };
+  };
+
+  // UPDATE ALL BY HOOKS
+  const handleUpdateAll = () => {
+    parent.postMessage(
+      {
+        pluginMessage: {
+          type: "update-all",
+          data: config as ConfigTypes
+        }
+      },
+      "*"
+    );
+  };
+
+  ////////////////////////////////////////////////////////////////
+  //////////////////////////// RENDER ////////////////////////////
+  ////////////////////////////////////////////////////////////////
+
   return (
-    <div>
+    <div key={appKey}>
       <div className={styles.header}>
         <Input
           className={`${styles.title}`}
+          darkStyle
           type={"Compositions"}
           value={config.about.name}
           onChange={e => {
@@ -96,7 +137,14 @@ const App = ({}) => {
             });
           }}
         />
-        <Button icon={"plus"} onClick={() => {}} />
+        <Button
+          icon={"upload"}
+          type="file"
+          iconWidth
+          onFileChange={handleUploadConfigFile}
+        />
+        <Button icon={"save"} iconWidth onClick={handleSaveConfigFile} />
+        <Button icon={"info"} iconWidth onClick={() => {}} />
       </div>
 
       <Divider />
@@ -108,6 +156,7 @@ const App = ({}) => {
             name={item.name}
             hookName={item.hookName}
             description={item.description}
+            lock={item.lock}
             space={{
               top: item.space.top,
               right: item.space.right,
@@ -115,10 +164,23 @@ const App = ({}) => {
               left: item.space.left,
               between: item.space.between
             }}
-            onChange={data => {
+            onRemove={() => {
               setConfig({
                 ...config,
-                [i]: { ...data }
+                compositions: config.compositions.filter(value => {
+                  return value !== item;
+                })
+              });
+            }}
+            onChange={data => {
+              // UPDATE THE STATE
+              // https://stackoverflow.com/questions/39889009/replace-object-in-array-on-react-state
+              let updatedCompositions = config.compositions;
+              updatedCompositions[i] = data;
+
+              setConfig({
+                ...config,
+                compositions: updatedCompositions
               });
             }}
           />
@@ -126,6 +188,17 @@ const App = ({}) => {
       })}
       <CompositionCard>
         <Button icon="plus" onClick={handleNewComposition} />
+      </CompositionCard>
+
+      <Divider />
+
+      <CompositionCard>
+        <Button
+          icon="update"
+          text="Update all by hooks"
+          lightStyle
+          onClick={handleUpdateAll}
+        />
       </CompositionCard>
     </div>
   );

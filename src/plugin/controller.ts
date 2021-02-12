@@ -5,15 +5,25 @@ import { log, sortNodesByPosition } from "../utils";
 ////////////////////////////////////////////////////////////////
 
 // Show UI
-figma.showUI(__html__, { width: 340, height: 640 });
+figma.showUI(__html__, { width: 360, height: 500 });
 
 ////////////////////////////////////////////////////////////////
 ///////////////////////// ON MESSAGE ///////////////////////////
 ////////////////////////////////////////////////////////////////
 
+const setCompositionProps = (frame, data) => {
+  frame.name = `${data.hookName}`;
+  frame.paddingTop = data.space.top;
+  frame.paddingRight = data.space.right;
+  frame.paddingBottom = data.space.bottom;
+  frame.paddingLeft = data.space.left;
+  frame.itemSpacing = data.space.between;
+};
+
 figma.ui.onmessage = async msg => {
   let node = figma.currentPage.selection;
 
+  // UPDATE ON BY ONE
   if (msg.type === "apply-composition") {
     //////////////////////////////////////////////////
     /////// IF SELECTED MORE THAN TWO ELEMENTS ///////
@@ -23,7 +33,6 @@ figma.ui.onmessage = async msg => {
 
       // SET FRAME
       let frame = figma.createFrame();
-      frame.name = `${msg.data.hookName}`;
       //
       const group = figma.group(node, parentConteiner);
       frame.x = group.x;
@@ -32,12 +41,9 @@ figma.ui.onmessage = async msg => {
       frame.layoutMode = "VERTICAL";
       frame.resize(group.width, group.height);
       frame.primaryAxisSizingMode = "AUTO";
+      // frame.primaryAxisSizingMode = "AUTO";
       // SET SPASING
-      frame.paddingTop = msg.data.space.top;
-      frame.paddingRight = msg.data.space.right;
-      frame.paddingBottom = msg.data.space.bottom;
-      frame.paddingLeft = msg.data.space.left;
-      frame.itemSpacing = msg.data.space.between;
+      setCompositionProps(frame, msg.data);
 
       // ADD CHILDREN ONE BY ONE TO THE NEW FRAME
       let sortedNodes = sortNodesByPosition(node);
@@ -57,15 +63,26 @@ figma.ui.onmessage = async msg => {
       if (node[0].layoutMode === "VERTICAL") {
         let frame = node[0];
         frame.primaryAxisSizingMode = "AUTO";
-        frame.name = `${msg.data.hookName}`;
-        frame.paddingTop = msg.data.space.top;
-        frame.paddingRight = msg.data.space.right;
-        frame.paddingBottom = msg.data.space.bottom;
-        frame.paddingLeft = msg.data.space.left;
-        frame.itemSpacing = msg.data.space.between;
+        setCompositionProps(frame, msg.data);
       }
     } else {
       log.error("Please select at least two blocks");
     }
+  }
+
+  // UPDTE ALLL BY HOOKS
+  if (msg.type === "update-all") {
+    log.success("Updating all compositions");
+    let allPages = figma.root.children;
+    allPages.map(page => {
+      msg.data.compositions.map(compositionData => {
+        let compositions = page.findAll(
+          n => n.name === compositionData.hookName
+        );
+        compositions.map(compositionFrame => {
+          setCompositionProps(compositionFrame, compositionData);
+        });
+      });
+    });
   }
 };

@@ -11,18 +11,32 @@
   &:focus {
     border: 1px solid var(--semi-dark-clr);
   }
-  animation-duration: 1s;
   animation-name: newCard;
+  animation-duration: 0.8s;
   animation-iteration-count: 1;
 }
 
 @keyframes newCard {
-  from {
+  0% {
     border: 1px solid var(--dark-clr);
-    transform: translateY(-4px);
+    transform: translateY(-8px) scale(1.02) rotate(4deg);
+    opacity: 0;
   }
-  to {
+  20% {
+    transform: translateY(8px) scale(0.98) rotate(2deg);
+    opacity: 1;
+  }
+  30% {
+    transform: translateY(-4px) scale(1) rotate(0deg);
+  }
+  50% {
+    transform: translateY(2px) scale(1);
+  }
+  70% {
     border: 1px solid var(--middle-clr);
-    transform: translateY(0);
+    transform: translateY(-2px) scale(1);
+  }
+  100% {
+    transform: translateY(0) scale(1);
   }
 }

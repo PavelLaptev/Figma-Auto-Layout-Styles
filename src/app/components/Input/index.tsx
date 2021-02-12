@@ -6,6 +6,8 @@ interface Props {
   label?: string;
   value: any;
   type?: string;
+  darkStyle?: boolean;
+  disabled?: boolean;
   onChange?: (e) => void;
 }
 
@@ -23,7 +25,11 @@ const Input: React.FunctionComponent<Props> = props => {
         <label className={styles.label}>{props.label}</label>
       ) : null}
       <input
-        className={styles.input}
+        disabled={props.disabled}
+        min={0}
+        className={`${styles.input} ${
+          props.darkStyle ? styles.darkStyle : styles.lightStyle
+        }`}
         type={props.type}
         value={val}
         onChange={handleInputChange}
@@ -36,7 +42,9 @@ Input.defaultProps = {
   className: "",
   type: "number",
   label: null,
-  onChange: () => {}
+  darkStyle: false,
+  onChange: () => {},
+  disabled: false
 } as Partial<Props>;
 
 export default Input;

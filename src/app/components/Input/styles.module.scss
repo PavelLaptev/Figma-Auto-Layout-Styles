@@ -22,12 +22,29 @@
   width: 100%;
   border: none;
   outline: none;
-  border-radius: var(--radius-s);
-  &:hover {
-    background-color: rgba(0, 0, 0, 0.05);
+  border-radius: var(--radius-m);
+  transition: all 0, 1s ease;
+  // &[type="number"]::-webkit-inner-spin-button {
+  //   width: 20px;
+  //   height: 20px;
+  // }
+  &:disabled {
+    &:hover {
+      background-color: unset;
+    }
   }
-  &[type="number"]::-webkit-inner-spin-button {
-    width: 20px;
-    height: 20px;
+}
+
+.lightStyle {
+  background-color: var(--white-clr);
+  &:hover {
+    background-color: var(--light-clr);
+  }
+}
+
+.darkStyle {
+  background-color: var(--light-clr);
+  &:hover {
+    background-color: var(--middle-clr);
   }
 }

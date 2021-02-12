@@ -6,6 +6,9 @@
       font-size: 14px;
     }
   }
+  button:last-child {
+    margin-left: var(--spacer-s);
+  }
 }
 
 .section {

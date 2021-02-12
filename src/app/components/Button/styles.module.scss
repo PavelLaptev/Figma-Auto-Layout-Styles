@@ -1,5 +1,4 @@
 .button {
-  flex: 1;
   position: relative;
   display: flex;
   justify-content: center;
@@ -9,9 +8,19 @@
   height: var(--control-height);
   padding: 8px;
   border-radius: var(--radius-m);
+}
+
+.lightStyle {
   background-color: var(--light-clr);
   &:hover {
     background-color: var(--middle-clr);
+  }
+}
+
+.darkStyle {
+  background-color: var(--white-clr);
+  &:hover {
+    background-color: var(--light-clr);
   }
 }
 
@@ -28,7 +37,6 @@
 
 .icon {
   user-select: none;
-  margin: 0 4px;
 }
 
 .input {

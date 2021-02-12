@@ -5,7 +5,8 @@ import Button from "../Button";
 import Input from "../Input";
 
 interface Props extends CompositionTypes {
-  onClick?: () => void;
+  onApply?: () => void;
+  onRemove?: () => void;
   onChange?: (data) => void;
 }
 
@@ -14,6 +15,7 @@ const CompositionSet: React.FunctionComponent<Props> = props => {
     name: props.name,
     hookName: props.hookName,
     description: props.description,
+    lock: props.lock,
     space: {
       top: props.space.top,
       right: props.space.right,
@@ -33,27 +35,57 @@ const CompositionSet: React.FunctionComponent<Props> = props => {
       },
       "*"
     );
-    props.onClick();
+    props.onApply();
+  };
+
+  const handleRemove = () => {
+    props.onRemove();
+  };
+
+  const handleLock = () => {
+    let newData = {
+      ...data,
+      lock: !data.lock
+    };
+    props.onChange(newData);
+    setData(newData);
   };
 
   return (
     <CompositionCard>
       <div className={styles.header}>
         <Input
+          disabled={data.lock}
           className={`${styles.input} ${styles.header_name}`}
           type={"text"}
           value={data.name}
+          onChange={e => {
+            let newData = {
+              ...data,
+              name: e.target.value
+            };
+            props.onChange(newData);
+            setData(newData);
+          }}
         />
+        <Button
+          icon={data.lock ? "lock" : "unlock"}
+          iconWidth
+          lightStyle={data.lock ? false : true}
+          onClick={handleLock}
+        />
+        <Button icon={"cross"} iconWidth lightStyle onClick={handleRemove} />
       </div>
 
       <form className={`${styles.section} ${styles.space}`}>
         <Input
+          disabled={data.lock}
           className={styles.input}
           value={data.space.between}
           label="Between"
           type={"number"}
           onChange={e => {
-            setData(() => ({
+            let newData = {
               ...data,
               space: {
                 top: data.space.top,
@@ -62,10 +94,13 @@ const CompositionSet: React.FunctionComponent<Props> = props => {
                 left: data.space.left,
                 between: +e.target.value
               }
-            }));
+            };
+            props.onChange(newData);
+            setData(newData);
           }}
         />
         <Input
+          disabled={data.lock}
           className={styles.input}
           value={data.space.top}
           label="Top"
@@ -82,17 +117,17 @@ const CompositionSet: React.FunctionComponent<Props> = props => {
               }
             };
             props.onChange(newData);
-            console.log(newData);
             setData(newData);
           }}
         />
         <Input
+          disabled={data.lock}
           className={styles.input}
           value={data.space.right}
           label="Right"
           type={"number"}
           onChange={e => {
-            setData(() => ({
+            let newData = {
               ...data,
               space: {
                 top: data.space.top,
@@ -101,16 +136,19 @@ const CompositionSet: React.FunctionComponent<Props> = props => {
                 left: data.space.left,
                 between: data.space.between
               }
-            }));
+            };
+            props.onChange(newData);
+            setData(newData);
           }}
         />
         <Input
+          disabled={data.lock}
           className={styles.input}
           value={data.space.bottom}
           label="Bottom"
           type={"number"}
           onChange={e => {
-            setData(() => ({
+            let newData = {
               ...data,
               space: {
                 top: data.space.top,
@@ -119,16 +157,19 @@ const CompositionSet: React.FunctionComponent<Props> = props => {
                 left: data.space.left,
                 between: data.space.between
               }
-            }));
+            };
+            props.onChange(newData);
+            setData(newData);
           }}
         />
         <Input
+          disabled={data.lock}
           className={styles.input}
           value={data.space.left}
           label="Left"
           type={"number"}
           onChange={e => {
-            setData(() => ({
+            let newData = {
               ...data,
               space: {
                 top: data.space.top,
@@ -137,13 +178,16 @@ const CompositionSet: React.FunctionComponent<Props> = props => {
                 left: +e.target.value,
                 between: data.space.between
               }
-            }));
+            };
+            props.onChange(newData);
+            setData(newData);
           }}
         />
       </form>
 
       <div className={styles.section}>
         <Input
+          disabled={data.lock}
           className={styles.input}
           label="Hook Name"
           type={"text"}
@@ -153,6 +197,7 @@ const CompositionSet: React.FunctionComponent<Props> = props => {
 
       <div className={styles.section}>
         <Input
+          disabled={data.lock}
           className={styles.input}
           label="Description"
           type={"text"}
@@ -168,7 +213,7 @@ const CompositionSet: React.FunctionComponent<Props> = props => {
 };
 
 CompositionSet.defaultProps = {
-  onClick: () => {},
+  onApply: () => {},
   onChange: () => {}
 } as Partial<Props>;
 

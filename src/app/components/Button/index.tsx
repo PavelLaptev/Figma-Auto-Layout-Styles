@@ -9,6 +9,10 @@ interface Props {
   icon?: string;
   reference?: React.Ref<HTMLButtonElement>;
   type?: string;
+  iconWidth?: boolean;
+  fullWidth?: boolean;
+  lightStyle?: boolean;
+  style?: React.CSSProperties;
   onClick?: (e) => void;
   onBlur?: (e) => void;
   onMouseUp?: (e) => void;
@@ -29,8 +33,14 @@ const Button: React.FunctionComponent<Props> = props => {
       onMouseUp={props.onMouseUp}
       onMouseDown={props.onMouseDown}
       onFocus={props.onFocus}
-      className={`${styles.button} ${props.className}`}
+      className={`${styles.button} ${props.className} ${
+        props.lightStyle ? styles.darkStyle : styles.lightStyle
+      }`}
       ref={props.reference}
+      style={{
+        flex: props.iconWidth && !props.fullWidth ? "0 1 auto" : "1",
+        ...props.style
+      }}
     >
       {props.type === "file" ? (
         <input
@@ -38,6 +48,7 @@ const Button: React.FunctionComponent<Props> = props => {
           className={styles.input}
           accept="application/JSON"
           onClick={e => (e.currentTarget.value = null)}
+          multiple={false}
           onChange={handleOnFileChange}
         />
       ) : null}
@@ -50,7 +61,11 @@ const Button: React.FunctionComponent<Props> = props => {
 Button.defaultProps = {
   text: null,
   icon: null,
-  type: "button"
+  type: "button",
+  iconWidth: false,
+  fullWidth: false,
+  lightStyle: false,
+  style: {}
 } as Partial<Props>;
 
 export default Button;

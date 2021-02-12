@@ -2,6 +2,7 @@ interface CompositionTypes {
   name: string;
   hookName: string;
   description: string;
+  lock: boolean;
   space: {
     top: number;
     right: number;

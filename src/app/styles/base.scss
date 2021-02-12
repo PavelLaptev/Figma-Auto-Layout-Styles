@@ -5,7 +5,7 @@
   --white-clr: #fff;
   --light-clr: #eff2f3;
   --middle-clr: #e2e5e5;
-  --semi-dark-clr: #c7cdcf;
+  --semi-dark-clr: #c5ced1;
   --dark-clr: #353738;
   //
   --radius-s: 4px;
@@ -28,6 +28,11 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+*::selection {
+  color: var(--white-clr);
+  background-color: var(--dark-clr);
 }
 
 body {
