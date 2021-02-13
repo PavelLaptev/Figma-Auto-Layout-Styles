@@ -25,6 +25,7 @@ figma.ui.onmessage = async msg => {
 
   // UPDATE ON BY ONE
   if (msg.type === "apply-composition") {
+    console.log(msg.data);
     //////////////////////////////////////////////////
     /////// IF SELECTED MORE THAN TWO ELEMENTS ///////
     //////////////////////////////////////////////////
@@ -39,6 +40,7 @@ figma.ui.onmessage = async msg => {
       frame.y = group.y;
       // SET AUTO-LAYOUT AND SIZE
       frame.layoutMode = "VERTICAL";
+      frame.backgrounds = [];
       frame.resize(group.width, group.height);
       frame.primaryAxisSizingMode = "AUTO";
       // frame.primaryAxisSizingMode = "AUTO";

@@ -12,6 +12,7 @@ interface Props extends CompositionTypes {
 
 const CompositionSet: React.FunctionComponent<Props> = props => {
   const [data, setData] = React.useState({
+    pluginID: props.pluginID,
     name: props.name,
     hookName: props.hookName,
     description: props.description,
@@ -192,6 +193,14 @@ const CompositionSet: React.FunctionComponent<Props> = props => {
           label="Hook Name"
           type={"text"}
           value={data.hookName}
+          onChange={e => {
+            let newData = {
+              ...data,
+              hookName: e.target.value
+            };
+            props.onChange(newData);
+            setData(newData);
+          }}
         />
       </div>
 
@@ -202,6 +211,14 @@ const CompositionSet: React.FunctionComponent<Props> = props => {
           label="Description"
           type={"text"}
           value={data.description}
+          onChange={e => {
+            let newData = {
+              ...data,
+              description: e.target.value
+            };
+            props.onChange(newData);
+            setData(newData);
+          }}
         />
       </div>
 

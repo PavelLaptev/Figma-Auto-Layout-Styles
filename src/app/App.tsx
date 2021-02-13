@@ -19,6 +19,7 @@ const App = ({}) => {
     },
     compositions: [
       {
+        pluginID: getRandomKey(),
         name: "Composition Small",
         hookName: "🐶CompS",
         description: "Some text",
@@ -32,6 +33,7 @@ const App = ({}) => {
         }
       } as CompositionTypes,
       {
+        pluginID: getRandomKey(),
         name: "Composition Medium",
         hookName: "🦊CompM",
         description: "Some text",
@@ -45,6 +47,7 @@ const App = ({}) => {
         }
       } as CompositionTypes,
       {
+        pluginID: getRandomKey(),
         name: "Composition Large",
         hookName: "🐻CompL",
         description: "Some text",
@@ -69,6 +72,7 @@ const App = ({}) => {
       compositions: [
         ...config.compositions,
         {
+          pluginID: getRandomKey(),
           name: `New Composition ${uniqueID}`,
           hookName: uniqueID,
           description: "Some text",
@@ -152,7 +156,8 @@ const App = ({}) => {
       {config.compositions.map((item, i) => {
         return (
           <CompositionSet
-            key={`${item.hookName}${i}`}
+            key={`${item.pluginID}`}
+            pluginID={item.pluginID}
             name={item.name}
             hookName={item.hookName}
             description={item.description}
@@ -176,6 +181,7 @@ const App = ({}) => {
               // UPDATE THE STATE
               // https://stackoverflow.com/questions/39889009/replace-object-in-array-on-react-state
               let updatedCompositions = config.compositions;
+              // console.log(updatedCompositions[i]);
               updatedCompositions[i] = data;
 
               setConfig({

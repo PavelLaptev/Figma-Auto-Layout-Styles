@@ -1,4 +1,5 @@
 interface CompositionTypes {
+  pluginID: string;
   name: string;
   hookName: string;
   description: string;
