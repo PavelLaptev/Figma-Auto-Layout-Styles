@@ -1,6 +1,7 @@
 interface CompositionTypes {
   pluginID: string;
   name: string;
+  direction: "VERTICAL" | "HORIZONTAL";
   hookName: string;
   description: string;
   lock: boolean;

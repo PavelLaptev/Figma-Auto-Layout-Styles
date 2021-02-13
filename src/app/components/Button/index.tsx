@@ -13,6 +13,7 @@ interface Props {
   fullWidth?: boolean;
   lightStyle?: boolean;
   style?: React.CSSProperties;
+  disabled?: boolean;
   tooltip?: {
     text: string;
     position: "center" | "left" | "right";
@@ -44,6 +45,7 @@ const Button: React.FunctionComponent<Props> = props => {
 
   return (
     <button
+      disabled={props.disabled}
       onClick={props.onClick}
       onBlur={props.onBlur}
       onMouseUp={props.onMouseUp}
@@ -87,7 +89,8 @@ Button.defaultProps = {
   iconWidth: false,
   fullWidth: false,
   lightStyle: false,
-  style: {}
+  style: {},
+  disabled: false
 } as Partial<Props>;
 
 export default Button;

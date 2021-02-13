@@ -11,8 +11,12 @@ figma.showUI(__html__, { width: 360, height: 500 });
 ///////////////////////// ON MESSAGE ///////////////////////////
 ////////////////////////////////////////////////////////////////
 
-const setCompositionProps = (frame, data) => {
+const setCompositionProps = (frame, data: CompositionTypes) => {
   frame.name = `${data.hookName}`;
+  frame.layoutMode = data.direction;
+  frame.primaryAxisSizingMode = "FIXED";
+  frame.counterAxisSizingMode = "FIXED";
+
   frame.paddingTop = data.space.top;
   frame.paddingRight = data.space.right;
   frame.paddingBottom = data.space.bottom;
@@ -40,11 +44,9 @@ figma.ui.onmessage = async msg => {
       frame.x = group.x;
       frame.y = group.y;
       // SET AUTO-LAYOUT AND SIZE
-      frame.layoutMode = "VERTICAL";
       frame.backgrounds = [];
       frame.resize(group.width, group.height);
-      frame.primaryAxisSizingMode = "AUTO";
-      // frame.primaryAxisSizingMode = "AUTO";
+
       // SET SPASING
       setCompositionProps(frame, msg.data);
 
@@ -63,9 +65,8 @@ figma.ui.onmessage = async msg => {
       ///// IF SELECTED ONE FRAME WITH AUTO-LAYOUT /////
       //////////////////////////////////////////////////
     } else if (node.length === 1 && node[0].type === "FRAME") {
-      if (node[0].layoutMode === "VERTICAL") {
+      if (node[0].layoutMode !== "NONE") {
         let frame = node[0];
-        frame.primaryAxisSizingMode = "AUTO";
         setCompositionProps(frame, msg.data);
       }
     } else {

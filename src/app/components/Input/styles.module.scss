@@ -1,16 +1,12 @@
+@import "../../styles/mixins";
+
 .wrap {
   display: flex;
   flex-direction: column;
 }
 
 .label {
-  font-family: "Inter", sans-serif;
-  font-size: 12px;
-  transform: translateX(var(--spacer-s));
-  opacity: 0.5;
-  width: 100%;
-  font-size: 12px;
-  margin-bottom: var(--spacer-s);
+  @include label;
 }
 
 .input {
@@ -25,9 +21,7 @@
   border-radius: var(--radius-m);
   transition: all var(--hover-speed) ease;
   &:disabled {
-    &:hover {
-      background-color: unset;
-    }
+    pointer-events: none;
   }
 }
 

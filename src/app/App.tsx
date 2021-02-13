@@ -8,6 +8,7 @@ import CompositionCard from "./components/CompositionCard";
 import CompositionSet from "./components/CompositionSet";
 import Input from "./components/Input";
 import Divider from "./components/Divider";
+// import Onboarding from "./components/Onboarding";
 
 // Application
 const App = ({}) => {
@@ -21,6 +22,7 @@ const App = ({}) => {
       {
         pluginID: getRandomKey(),
         name: "Composition Small",
+        direction: "VERTICAL",
         hookName: "🐶CompS",
         description: "Some text",
         lock: false,
@@ -35,6 +37,7 @@ const App = ({}) => {
       {
         pluginID: getRandomKey(),
         name: "Composition Medium",
+        direction: "VERTICAL",
         hookName: "🦊CompM",
         description: "Some text",
         lock: true,
@@ -49,6 +52,7 @@ const App = ({}) => {
       {
         pluginID: getRandomKey(),
         name: "Composition Large",
+        direction: "VERTICAL",
         hookName: "🐻CompL",
         description: "Some text",
         lock: false,
@@ -74,6 +78,7 @@ const App = ({}) => {
         {
           pluginID: getRandomKey(),
           name: `New Composition ${uniqueID}`,
+          direction: "VERTICAL",
           hookName: uniqueID,
           description: "Some text",
           lock: false,
@@ -125,6 +130,7 @@ const App = ({}) => {
 
   return (
     <div key={appKey}>
+      {/* <Onboarding trigger={false} /> */}
       <div className={styles.header}>
         <Input
           className={`${styles.title}`}
@@ -158,7 +164,7 @@ const App = ({}) => {
           icon={"info"}
           iconWidth
           onClick={() => {}}
-          tooltip={{ text: "how-to", position: "right" }}
+          tooltip={{ text: "how-to", position: "center" }}
         />
       </div>
 
@@ -170,6 +176,7 @@ const App = ({}) => {
             key={`${item.pluginID}`}
             pluginID={item.pluginID}
             name={item.name}
+            direction={item.direction}
             hookName={item.hookName}
             description={item.description}
             lock={item.lock}

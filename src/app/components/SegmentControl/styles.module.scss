@@ -1,0 +1,18 @@
+@import "../../styles/mixins";
+
+.wrap {
+  display: flex;
+  flex-direction: column;
+}
+
+.buttons {
+  display: flex;
+}
+
+.button {
+  margin-right: var(--spacer-s);
+}
+
+.label {
+  @include label;
+}

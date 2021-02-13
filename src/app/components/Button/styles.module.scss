@@ -14,6 +14,10 @@
       opacity: 1;
     }
   }
+  &:disabled {
+    opacity: 0.8;
+    pointer-events: none;
+  }
 }
 
 .lightStyle {
@@ -53,6 +57,7 @@
 }
 
 .tooltip {
+  pointer-events: none;
   position: absolute;
   opacity: 0;
   z-index: 99;
@@ -66,8 +71,7 @@
   background-color: var(--dark-clr);
   border-radius: var(--radius-s);
   width: max-content;
-  transition: all var(--hover-speed) ease;
-  transition-delay: 0.1s;
+  transition: all 0.1s ease;
   &Left {
     left: 0;
   }

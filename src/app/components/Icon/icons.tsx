@@ -134,7 +134,39 @@ const icons = {
         fill={iconcolor}
       />
     </>
+  ),
+  toRight: (
+    <>
+      <path
+        d="M10 5L14.9194 10.0373C14.9639 10.0829 14.963 10.1559 14.9174 10.2005V10.2005M10 15L14.9174 10.2005M14.9174 10.2005L4.5 10.2005"
+        stroke={iconcolor}
+        strokeWidth="2"
+      />
+    </>
+  ),
+  toDown: (
+    <>
+      <path
+        d="M15 10.5L9.96275 15.4194C9.91714 15.4639 9.84407 15.463 9.79954 15.4174M9.79954 15.4174L5 10.5M9.79954 15.4174L9.79954 5"
+        stroke={iconcolor}
+        strokeWidth="2"
+      />
+    </>
   )
 };
+
+<svg
+  width="20"
+  height="20"
+  viewBox="0 0 20 20"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+>
+  <path
+    d="M15 10.5L9.96275 15.4194C9.91714 15.4639 9.84407 15.463 9.79954 15.4174M9.79954 15.4174L5 10.5M9.79954 15.4174L9.79954 5"
+    stroke="#353738"
+    stroke-width="2"
+  />
+</svg>;
 
 export default icons;

@@ -2,6 +2,7 @@ import * as React from "react";
 import styles from "./styles.module.scss";
 import CompositionCard from "../CompositionCard";
 import Button from "../Button";
+import SegmentControl from "../SegmentControl";
 import Input from "../Input";
 
 interface Props extends CompositionTypes {
@@ -14,6 +15,7 @@ const CompositionSet: React.FunctionComponent<Props> = props => {
   const [data, setData] = React.useState({
     pluginID: props.pluginID,
     name: props.name,
+    direction: props.direction,
     hookName: props.hookName,
     description: props.description,
     lock: props.lock,
@@ -43,15 +45,6 @@ const CompositionSet: React.FunctionComponent<Props> = props => {
     props.onRemove();
   };
 
-  const handleLock = () => {
-    let newData = {
-      ...data,
-      lock: !data.lock
-    };
-    props.onChange(newData);
-    setData(newData);
-  };
-
   return (
     <CompositionCard className={styles.card}>
       <div className={styles.header}>
@@ -64,7 +57,7 @@ const CompositionSet: React.FunctionComponent<Props> = props => {
             let newData = {
               ...data,
               name: e.target.value
-            };
+            } as CompositionTypes;
             props.onChange(newData);
             setData(newData);
           }}
@@ -73,7 +66,14 @@ const CompositionSet: React.FunctionComponent<Props> = props => {
           icon={data.lock ? "lock" : "unlock"}
           iconWidth
           lightStyle={data.lock ? false : true}
-          onClick={handleLock}
+          onClick={() => {
+            let newData = {
+              ...data,
+              lock: !data.lock
+            } as CompositionTypes;
+            props.onChange(newData);
+            setData(newData);
+          }}
           tooltip={{ text: data.lock ? "unlock" : "lock", position: "center" }}
         />
         <Button
@@ -85,12 +85,33 @@ const CompositionSet: React.FunctionComponent<Props> = props => {
         />
       </div>
 
-      <form className={`${styles.section} ${styles.space}`}>
+      <div className={`${styles.section} ${styles.space}`}>
+        <SegmentControl
+          className={styles.input}
+          label="Direction"
+          disabled={data.lock ? true : false}
+          buttons={[
+            {
+              icon: "toDown"
+            },
+            {
+              icon: "toRight"
+            }
+          ]}
+          onClick={i => {
+            let newData = {
+              ...data,
+              direction: i === 0 ? "VERTICAL" : "HORIZONTAL"
+            } as CompositionTypes;
+            props.onChange(newData);
+            setData(newData);
+          }}
+        />
         <Input
           disabled={data.lock}
           className={styles.input}
           value={data.space.between}
-          label="Between"
+          label="Space between"
           type={"number"}
           onChange={e => {
             let newData = {
@@ -102,11 +123,14 @@ const CompositionSet: React.FunctionComponent<Props> = props => {
                 left: data.space.left,
                 between: +e.target.value
               }
-            };
+            } as CompositionTypes;
             props.onChange(newData);
             setData(newData);
           }}
         />
+      </div>
+
+      <div className={`${styles.section} ${styles.space}`}>
         <Input
           disabled={data.lock}
           className={styles.input}
@@ -123,7 +147,7 @@ const CompositionSet: React.FunctionComponent<Props> = props => {
                 left: data.space.left,
                 between: data.space.between
               }
-            };
+            } as CompositionTypes;
             props.onChange(newData);
             setData(newData);
           }}
@@ -144,7 +168,7 @@ const CompositionSet: React.FunctionComponent<Props> = props => {
                 left: data.space.left,
                 between: data.space.between
               }
-            };
+            } as CompositionTypes;
             props.onChange(newData);
             setData(newData);
           }}
@@ -165,7 +189,7 @@ const CompositionSet: React.FunctionComponent<Props> = props => {
                 left: data.space.left,
                 between: data.space.between
               }
-            };
+            } as CompositionTypes;
             props.onChange(newData);
             setData(newData);
           }}
@@ -186,12 +210,12 @@ const CompositionSet: React.FunctionComponent<Props> = props => {
                 left: +e.target.value,
                 between: data.space.between
               }
-            };
+            } as CompositionTypes;
             props.onChange(newData);
             setData(newData);
           }}
         />
-      </form>
+      </div>
 
       <div className={styles.section}>
         <Input
@@ -204,7 +228,7 @@ const CompositionSet: React.FunctionComponent<Props> = props => {
             let newData = {
               ...data,
               hookName: e.target.value
-            };
+            } as CompositionTypes;
             props.onChange(newData);
             setData(newData);
           }}
@@ -222,7 +246,7 @@ const CompositionSet: React.FunctionComponent<Props> = props => {
             let newData = {
               ...data,
               description: e.target.value
-            };
+            } as CompositionTypes;
             props.onChange(newData);
             setData(newData);
           }}
