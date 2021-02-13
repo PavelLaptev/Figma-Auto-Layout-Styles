@@ -146,9 +146,20 @@ const App = ({}) => {
           type="file"
           iconWidth
           onFileChange={handleUploadConfigFile}
+          tooltip={{ text: "add from folder", position: "center" }}
         />
-        <Button icon={"save"} iconWidth onClick={handleSaveConfigFile} />
-        <Button icon={"info"} iconWidth onClick={() => {}} />
+        <Button
+          icon={"save"}
+          iconWidth
+          onClick={handleSaveConfigFile}
+          tooltip={{ text: "save config", position: "center" }}
+        />
+        <Button
+          icon={"info"}
+          iconWidth
+          onClick={() => {}}
+          tooltip={{ text: "how-to", position: "right" }}
+        />
       </div>
 
       <Divider />
@@ -193,7 +204,11 @@ const App = ({}) => {
         );
       })}
       <CompositionCard>
-        <Button icon="plus" onClick={handleNewComposition} />
+        <Button
+          icon="plus"
+          onClick={handleNewComposition}
+          tooltip={{ text: "add new composition", position: "center" }}
+        />
       </CompositionCard>
 
       <Divider />

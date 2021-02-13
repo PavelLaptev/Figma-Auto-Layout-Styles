@@ -8,6 +8,12 @@
   height: var(--control-height);
   padding: 8px;
   border-radius: var(--radius-m);
+  transition: all var(--hover-speed) ease;
+  &:hover {
+    .tooltip {
+      opacity: 1;
+    }
+  }
 }
 
 .lightStyle {
@@ -44,4 +50,32 @@
   width: 100%;
   height: 100%;
   opacity: 0;
+}
+
+.tooltip {
+  position: absolute;
+  opacity: 0;
+  z-index: 99;
+  bottom: -24px;
+  color: var(--white-clr);
+  font-family: "Inter", sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1;
+  padding: var(--spacer-s);
+  background-color: var(--dark-clr);
+  border-radius: var(--radius-s);
+  width: max-content;
+  transition: all var(--hover-speed) ease;
+  transition-delay: 0.1s;
+  &Left {
+    left: 0;
+  }
+  &Center {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  &Right {
+    right: 0;
+  }
 }

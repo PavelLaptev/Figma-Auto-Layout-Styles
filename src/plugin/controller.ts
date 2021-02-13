@@ -25,7 +25,8 @@ figma.ui.onmessage = async msg => {
 
   // UPDATE ON BY ONE
   if (msg.type === "apply-composition") {
-    console.log(msg.data);
+    // console.log(msg.data);
+
     //////////////////////////////////////////////////
     /////// IF SELECTED MORE THAN TWO ELEMENTS ///////
     //////////////////////////////////////////////////
@@ -74,16 +75,23 @@ figma.ui.onmessage = async msg => {
 
   // UPDTE ALLL BY HOOKS
   if (msg.type === "update-all") {
-    log.success("Updating all compositions");
+    let showMessageState = false;
     let allPages = figma.root.children;
+
     allPages.map(page => {
       msg.data.compositions.map(compositionData => {
         let compositions = page.findAll(
           n => n.name === compositionData.hookName
         );
-        compositions.map(compositionFrame => {
-          setCompositionProps(compositionFrame, compositionData);
-        });
+        if (compositions.length > 0) {
+          showMessageState ? false : log.success(`Updating all compositions`);
+          showMessageState = true;
+          compositions.map(compositionFrame => {
+            setCompositionProps(compositionFrame, compositionData);
+          });
+        } else {
+          log.warn(`no compositions on the page "${page.name}"`);
+        }
       });
     });
   }

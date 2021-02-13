@@ -6,7 +6,7 @@ let logStyles = "border-radius: 4px; padding: 2px 4px;";
 let logTime = 800;
 
 const log = {
-  success: (text, show = true) => {
+  success: (text, show = true, timer = logTime) => {
     show
       ? console.log(
           `%c${text}`,
@@ -14,10 +14,10 @@ const log = {
         )
       : false;
     figma.notify(`🎉 ${text}`, {
-      timeout: logTime
+      timeout: timer
     });
   },
-  check: (text, show = true) => {
+  check: (text, show = true, timer = logTime) => {
     show
       ? console.log(
           `%c${text}`,
@@ -25,11 +25,11 @@ const log = {
         )
       : false;
     figma.notify(`✅ ${text}`, {
-      timeout: logTime
+      timeout: timer
     });
   },
 
-  neutral: (text, show = true) => {
+  neutral: (text, show = true, timer = logTime) => {
     show
       ? console.log(
           `%c${text}`,
@@ -37,10 +37,10 @@ const log = {
         )
       : false;
     figma.notify(`${text}`, {
-      timeout: logTime
+      timeout: timer
     });
   },
-  warn: (text, show = true) => {
+  warn: (text, show = true, timer = logTime) => {
     show
       ? console.log(
           `%c${text}`,
@@ -48,15 +48,15 @@ const log = {
         )
       : false;
     figma.notify(`☢️ ${text}`, {
-      timeout: logTime
+      timeout: timer
     });
   },
-  error: (text, show = true) => {
+  error: (text, show = true, timer = logTime) => {
     show
       ? console.log(`%c${text}`, `background: rgba(255,0,0,0.14);${logStyles}`)
       : false;
     figma.notify(`⛔️ ${text}`, {
-      timeout: logTime
+      timeout: timer
     });
   }
 };

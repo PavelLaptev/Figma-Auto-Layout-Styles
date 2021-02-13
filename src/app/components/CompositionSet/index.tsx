@@ -53,7 +53,7 @@ const CompositionSet: React.FunctionComponent<Props> = props => {
   };
 
   return (
-    <CompositionCard>
+    <CompositionCard className={styles.card}>
       <div className={styles.header}>
         <Input
           disabled={data.lock}
@@ -74,8 +74,15 @@ const CompositionSet: React.FunctionComponent<Props> = props => {
           iconWidth
           lightStyle={data.lock ? false : true}
           onClick={handleLock}
+          tooltip={{ text: data.lock ? "unlock" : "lock", position: "center" }}
         />
-        <Button icon={"cross"} iconWidth lightStyle onClick={handleRemove} />
+        <Button
+          icon={"cross"}
+          iconWidth
+          lightStyle
+          onClick={handleRemove}
+          tooltip={{ text: "remove", position: "center" }}
+        />
       </div>
 
       <form className={`${styles.section} ${styles.space}`}>

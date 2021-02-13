@@ -7,6 +7,10 @@ interface CssExports {
   input: string;
   lightStyle: string;
   text: string;
+  tooltip: string;
+  tooltipCenter: string;
+  tooltipLeft: string;
+  tooltipRight: string;
 }
 export const cssExports: CssExports;
 export default cssExports;

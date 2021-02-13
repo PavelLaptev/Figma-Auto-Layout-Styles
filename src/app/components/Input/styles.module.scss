@@ -23,11 +23,7 @@
   border: none;
   outline: none;
   border-radius: var(--radius-m);
-  transition: all 0, 1s ease;
-  // &[type="number"]::-webkit-inner-spin-button {
-  //   width: 20px;
-  //   height: 20px;
-  // }
+  transition: all var(--hover-speed) ease;
   &:disabled {
     &:hover {
       background-color: unset;

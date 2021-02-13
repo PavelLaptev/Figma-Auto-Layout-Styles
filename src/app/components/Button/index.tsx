@@ -13,6 +13,10 @@ interface Props {
   fullWidth?: boolean;
   lightStyle?: boolean;
   style?: React.CSSProperties;
+  tooltip?: {
+    text: string;
+    position: "center" | "left" | "right";
+  };
   onClick?: (e) => void;
   onBlur?: (e) => void;
   onMouseUp?: (e) => void;
@@ -24,6 +28,18 @@ interface Props {
 const Button: React.FunctionComponent<Props> = props => {
   const handleOnFileChange = e => {
     props.onFileChange(e);
+  };
+
+  const setPosition = () => {
+    if (props.tooltip.position === "left") {
+      return styles.tooltipLeft;
+    }
+    if (props.tooltip.position === "center") {
+      return styles.tooltipCenter;
+    }
+    if (props.tooltip.position === "right") {
+      return styles.tooltipRight;
+    }
   };
 
   return (
@@ -42,9 +58,15 @@ const Button: React.FunctionComponent<Props> = props => {
         ...props.style
       }}
     >
+      {props.tooltip ? (
+        <div className={`${styles.tooltip} ${setPosition()}`}>
+          {props.tooltip.text}
+        </div>
+      ) : null}
       {props.type === "file" ? (
         <input
           type="file"
+          title=""
           className={styles.input}
           accept="application/JSON"
           onClick={e => (e.currentTarget.value = null)}
