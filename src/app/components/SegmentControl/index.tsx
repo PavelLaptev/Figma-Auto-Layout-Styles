@@ -13,10 +13,11 @@ interface Props {
   buttons: Array<ButtonProps>;
   disabled?: boolean;
   onClick?: (e) => void;
+  selected?: number;
 }
 
 const SegmentControl: React.FunctionComponent<Props> = props => {
-  const [selected, setSelected] = React.useState(0);
+  const [selected, setSelected] = React.useState(props.selected);
 
   const handleClick = i => {
     setSelected(i);
@@ -50,7 +51,8 @@ SegmentControl.defaultProps = {
   className: "",
   label: "Label",
   buttons: [],
-  disabled: false
+  disabled: false,
+  selected: 0
 } as Partial<Props>;
 
 export default SegmentControl;

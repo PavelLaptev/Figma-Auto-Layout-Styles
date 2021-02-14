@@ -1,5 +1,7 @@
 .app {
   position: relative;
+  overflow-x: hidden;
+  padding: calc(var(--spacer-m) * 2);
 }
 
 .header {

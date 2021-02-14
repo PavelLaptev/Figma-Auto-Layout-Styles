@@ -8,10 +8,14 @@ import CompositionCard from "./components/CompositionCard";
 import CompositionSet from "./components/CompositionSet";
 import Input from "./components/Input";
 import Divider from "./components/Divider";
-// import Onboarding from "./components/Onboarding";
+import Onboarding from "./components/Onboarding";
+import OnBoardProvider from "./components/Onboarding/OnBoardProvider";
 
-// Application
+///////////////////////////////////////////////
+///////////////// APPLICATION /////////////////
+///////////////////////////////////////////////
 const App = ({}) => {
+  const [toggleInfo, setToggleInfo] = React.useState(false);
   const [appKey, setAppKey] = React.useState(getRandomKey());
   const [config, setConfig] = React.useState({
     about: {
@@ -21,7 +25,7 @@ const App = ({}) => {
     compositions: [
       {
         pluginID: getRandomKey(),
-        name: "Composition Small",
+        name: "Small Layout",
         direction: "VERTICAL",
         hookName: "🐶CompS",
         description: "Some text",
@@ -36,7 +40,7 @@ const App = ({}) => {
       } as CompositionTypes,
       {
         pluginID: getRandomKey(),
-        name: "Composition Medium",
+        name: "Medium Layout",
         direction: "VERTICAL",
         hookName: "🦊CompM",
         description: "Some text",
@@ -51,10 +55,10 @@ const App = ({}) => {
       } as CompositionTypes,
       {
         pluginID: getRandomKey(),
-        name: "Composition Large",
+        name: "Large Layout",
         direction: "VERTICAL",
         hookName: "🐻CompL",
-        description: "Some text",
+        description: "For large compositions - like blocks of components",
         lock: false,
         space: {
           top: 0,
@@ -63,13 +67,29 @@ const App = ({}) => {
           right: 0,
           between: 32
         }
+      } as CompositionTypes,
+      {
+        pluginID: getRandomKey(),
+        name: "Cards Layout",
+        direction: "HORIZONTAL",
+        hookName: "🐭CardsLayout",
+        description: "This layout is for cards only.",
+        lock: false,
+        space: {
+          top: 0,
+          left: 0,
+          bottom: 0,
+          right: 0,
+          between: 16
+        }
       } as CompositionTypes
     ]
   } as ConfigTypes);
 
-  // ADD NEW COMPOSITION
+  ///////////////////////////////////////////////
+  ///////////// ADD NEW COMPOSITION /////////////
+  ///////////////////////////////////////////////
   let uniqueID = generateRandomID();
-
   const handleNewComposition = () => {
     setConfig({
       ...config,
@@ -94,12 +114,16 @@ const App = ({}) => {
     });
   };
 
-  // SAVE CONFIG FILE
+  ///////////////////////////////////////////////
+  ///////////// SAVE CONFIG FILE ////////////////
+  ///////////////////////////////////////////////
   const handleSaveConfigFile = () => {
     downloadJSON(config, `${config.about.name}.json`, "application/json");
   };
 
-  // UPLOAD CONFIG FILE
+  ///////////////////////////////////////////////
+  ///////////// UPLOAD CONFIG FILE /////////////
+  ///////////////////////////////////////////////
   const handleUploadConfigFile = e => {
     let reader = new FileReader();
     reader.readAsText(e.target.files[0]);
@@ -111,7 +135,9 @@ const App = ({}) => {
     };
   };
 
-  // UPDATE ALL BY HOOKS
+  ///////////////////////////////////////////////
+  ///////////// UPDATE ALL BY HOOKS /////////////
+  ///////////////////////////////////////////////
   const handleUpdateAll = () => {
     parent.postMessage(
       {
@@ -124,111 +150,128 @@ const App = ({}) => {
     );
   };
 
-  ////////////////////////////////////////////////////////////////
-  //////////////////////////// RENDER ////////////////////////////
-  ////////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////
+  /////////////////// RENDER ///////////////////
+  //////////////////////////////////////////////
 
   return (
-    <div key={appKey}>
-      {/* <Onboarding trigger={false} /> */}
-      <div className={styles.header}>
-        <Input
-          className={`${styles.title}`}
-          darkStyle
-          type={"Compositions"}
-          value={config.about.name}
-          onChange={e => {
-            setConfig({
-              about: {
-                name: e.target.value,
-                version: config.about.version
-              },
-              compositions: config.compositions
-            });
+    <OnBoardProvider.Provider value={toggleInfo}>
+      <div
+        className={styles.app}
+        style={
+          toggleInfo
+            ? { overflowY: "hidden", height: "100%" }
+            : { overflowY: "visible", height: "auto" }
+        }
+      >
+        <Onboarding
+          toggleInfo={() => {
+            setToggleInfo(!toggleInfo);
           }}
         />
-        <Button
-          icon={"upload"}
-          type="file"
-          iconWidth
-          onFileChange={handleUploadConfigFile}
-          tooltip={{ text: "add from folder", position: "center" }}
-        />
-        <Button
-          icon={"save"}
-          iconWidth
-          onClick={handleSaveConfigFile}
-          tooltip={{ text: "save config", position: "center" }}
-        />
-        <Button
-          icon={"info"}
-          iconWidth
-          onClick={() => {}}
-          tooltip={{ text: "how-to", position: "center" }}
-        />
+        <div key={appKey}>
+          <div className={styles.header}>
+            <Input
+              className={`${styles.title}`}
+              darkStyle
+              type="text"
+              value={config.about.name}
+              onChange={e => {
+                setConfig({
+                  about: {
+                    name: e.target.value,
+                    version: config.about.version
+                  },
+                  compositions: config.compositions
+                });
+              }}
+            />
+            <Button
+              icon={"upload"}
+              type="file"
+              iconWidth
+              onFileChange={handleUploadConfigFile}
+              tooltip={{ text: "add from folder", position: "center" }}
+            />
+            <Button
+              icon={"save"}
+              iconWidth
+              onClick={handleSaveConfigFile}
+              tooltip={{ text: "save config", position: "center" }}
+            />
+            <Button
+              icon={"info"}
+              iconWidth
+              onClick={() => {
+                setToggleInfo(!toggleInfo);
+              }}
+              tooltip={{ text: "how-to", position: "center" }}
+            />
+          </div>
+
+          <Divider />
+
+          {config.compositions.map((item, i) => {
+            return (
+              <CompositionSet
+                key={`${item.pluginID}`}
+                pluginID={item.pluginID}
+                name={item.name}
+                direction={item.direction}
+                hookName={item.hookName}
+                description={item.description}
+                lock={item.lock}
+                space={{
+                  top: item.space.top,
+                  right: item.space.right,
+                  bottom: item.space.bottom,
+                  left: item.space.left,
+                  between: item.space.between
+                }}
+                onRemove={() => {
+                  setConfig({
+                    ...config,
+                    compositions: config.compositions.filter(value => {
+                      return value !== item;
+                    })
+                  });
+                }}
+                onChange={data => {
+                  // UPDATE THE STATE
+                  // https://stackoverflow.com/questions/39889009/replace-object-in-array-on-react-state
+                  let updatedCompositions = config.compositions;
+                  // console.log(updatedCompositions[i]);
+                  updatedCompositions[i] = data;
+
+                  setConfig({
+                    ...config,
+                    compositions: updatedCompositions
+                  });
+                }}
+              />
+            );
+          })}
+          <CompositionCard>
+            <Button
+              icon="plus"
+              onClick={handleNewComposition}
+              tooltip={{ text: "add new composition", position: "center" }}
+            />
+          </CompositionCard>
+
+          <Divider />
+
+          <CompositionCard>
+            <Button
+              icon="update"
+              text="Update all by hooks"
+              lightStyle
+              onClick={handleUpdateAll}
+            />
+          </CompositionCard>
+        </div>
       </div>
-
-      <Divider />
-
-      {config.compositions.map((item, i) => {
-        return (
-          <CompositionSet
-            key={`${item.pluginID}`}
-            pluginID={item.pluginID}
-            name={item.name}
-            direction={item.direction}
-            hookName={item.hookName}
-            description={item.description}
-            lock={item.lock}
-            space={{
-              top: item.space.top,
-              right: item.space.right,
-              bottom: item.space.bottom,
-              left: item.space.left,
-              between: item.space.between
-            }}
-            onRemove={() => {
-              setConfig({
-                ...config,
-                compositions: config.compositions.filter(value => {
-                  return value !== item;
-                })
-              });
-            }}
-            onChange={data => {
-              // UPDATE THE STATE
-              // https://stackoverflow.com/questions/39889009/replace-object-in-array-on-react-state
-              let updatedCompositions = config.compositions;
-              // console.log(updatedCompositions[i]);
-              updatedCompositions[i] = data;
-
-              setConfig({
-                ...config,
-                compositions: updatedCompositions
-              });
-            }}
-          />
-        );
-      })}
-      <CompositionCard>
-        <Button
-          icon="plus"
-          onClick={handleNewComposition}
-          tooltip={{ text: "add new composition", position: "center" }}
-        />
-      </CompositionCard>
-
-      <Divider />
-
-      <CompositionCard>
-        <Button
-          icon="update"
-          text="Update all by hooks"
-          lightStyle
-          onClick={handleUpdateAll}
-        />
-      </CompositionCard>
-    </div>
+    </OnBoardProvider.Provider>
   );
 };
 

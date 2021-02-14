@@ -18,6 +18,7 @@ interface Props {
     text: string;
     position: "center" | "left" | "right";
   };
+  reverse?: boolean;
   onClick?: (e) => void;
   onBlur?: (e) => void;
   onMouseUp?: (e) => void;
@@ -57,6 +58,7 @@ const Button: React.FunctionComponent<Props> = props => {
       ref={props.reference}
       style={{
         flex: props.iconWidth && !props.fullWidth ? "0 1 auto" : "1",
+        flexDirection: props.reverse ? "row-reverse" : "row",
         ...props.style
       }}
     >
@@ -90,7 +92,8 @@ Button.defaultProps = {
   fullWidth: false,
   lightStyle: false,
   style: {},
-  disabled: false
+  disabled: false,
+  reverse: false
 } as Partial<Props>;
 
 export default Button;

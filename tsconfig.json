@@ -15,7 +15,8 @@
       "./node_modules/@types",
       "./node_modules/@figma",
       "./node_modules/@figma/plugin-typings",
-      "./configProps.d.ts"
+      "./configProps.d.ts",
+      "./declaration.d.ts"
     ]
   }
 }

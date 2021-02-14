@@ -5,7 +5,7 @@ interface Props {
   className?: string;
   label?: string;
   value: any;
-  type?: string;
+  type?: "number" | "text" | "textarea";
   darkStyle?: boolean;
   disabled?: boolean;
   onChange?: (e) => void;
@@ -19,11 +19,8 @@ const Input: React.FunctionComponent<Props> = props => {
     props.onChange(e);
   };
 
-  return (
-    <div className={`${styles.wrap} ${props.className} `}>
-      {props.label ? (
-        <label className={styles.label}>{props.label}</label>
-      ) : null}
+  const InputComp = () => {
+    return (
       <input
         disabled={props.disabled}
         min={0}
@@ -34,6 +31,28 @@ const Input: React.FunctionComponent<Props> = props => {
         value={val}
         onChange={handleInputChange}
       />
+    );
+  };
+
+  const TextAreaComp = () => {
+    return (
+      <textarea
+        disabled={props.disabled}
+        className={`${styles.input} ${styles.textarea} ${
+          props.darkStyle ? styles.darkStyle : styles.lightStyle
+        }`}
+        onChange={handleInputChange}
+        value={val}
+      />
+    );
+  };
+
+  return (
+    <div className={`${styles.wrap} ${props.className} `}>
+      {props.label ? (
+        <label className={styles.label}>{props.label}</label>
+      ) : null}
+      {props.type === "textarea" ? <TextAreaComp /> : <InputComp />}
     </div>
   );
 };

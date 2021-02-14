@@ -90,6 +90,7 @@ const CompositionSet: React.FunctionComponent<Props> = props => {
           className={styles.input}
           label="Direction"
           disabled={data.lock ? true : false}
+          selected={data.direction === "VERTICAL" ? 0 : 1}
           buttons={[
             {
               icon: "toDown"
@@ -240,7 +241,7 @@ const CompositionSet: React.FunctionComponent<Props> = props => {
           disabled={data.lock}
           className={styles.input}
           label="Description"
-          type={"text"}
+          type={"textarea"}
           value={data.description}
           onChange={e => {
             let newData = {

@@ -13,7 +13,7 @@
   font-family: "Inter", sans-serif;
   font-size: 12px;
   font-weight: 500;
-  padding: var(--spacer-s);
+  padding: var(--spacer-m) var(--spacer-s);
   height: var(--control-height);
   width: 100%;
   border: none;
@@ -23,6 +23,10 @@
   &:disabled {
     pointer-events: none;
   }
+}
+
+.textarea {
+  resize: vertical;
 }
 
 .lightStyle {

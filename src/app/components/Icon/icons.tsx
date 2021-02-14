@@ -144,6 +144,15 @@ const icons = {
       />
     </>
   ),
+  toLeft: (
+    <>
+      <path
+        d="M9.5 15L4.58065 9.96275C4.53611 9.91714 4.53699 9.84407 4.5826 9.79954V9.79954M9.5 5L4.5826 9.79954M4.5826 9.79954L15 9.79954"
+        stroke={iconcolor}
+        strokeWidth="2"
+      />
+    </>
+  ),
   toDown: (
     <>
       <path
@@ -154,19 +163,5 @@ const icons = {
     </>
   )
 };
-
-<svg
-  width="20"
-  height="20"
-  viewBox="0 0 20 20"
-  fill="none"
-  xmlns="http://www.w3.org/2000/svg"
->
-  <path
-    d="M15 10.5L9.96275 15.4194C9.91714 15.4639 9.84407 15.463 9.79954 15.4174M9.79954 15.4174L5 10.5M9.79954 15.4174L9.79954 5"
-    stroke="#353738"
-    stroke-width="2"
-  />
-</svg>;
 
 export default icons;

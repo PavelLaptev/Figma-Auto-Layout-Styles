@@ -5,6 +5,7 @@ interface CssExports {
   input: string;
   label: string;
   lightStyle: string;
+  textarea: string;
   wrap: string;
 }
 export const cssExports: CssExports;
