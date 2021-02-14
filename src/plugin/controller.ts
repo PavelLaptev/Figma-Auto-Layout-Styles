@@ -5,17 +5,26 @@ import { log, sortNodesByPosition } from "../utils";
 ////////////////////////////////////////////////////////////////
 
 // Show UI
-figma.showUI(__html__, { width: 360, height: 500 });
+figma.showUI(__html__, { width: 360, height: 600 });
 
 ////////////////////////////////////////////////////////////////
 ///////////////////////// ON MESSAGE ///////////////////////////
 ////////////////////////////////////////////////////////////////
 
-const setCompositionProps = (frame, data: CompositionTypes) => {
+const setCompositionProps = (
+  frame,
+  data: CompositionTypes,
+  skipAxisMode: boolean = false
+) => {
   frame.name = `${data.hookName}`;
   frame.layoutMode = data.direction;
-  frame.primaryAxisSizingMode = "FIXED";
-  frame.counterAxisSizingMode = "FIXED";
+
+  if (!skipAxisMode) {
+    frame.primaryAxisSizingMode =
+      data.direction === "HORIZONTAL" ? "FIXED" : "AUTO";
+    frame.counterAxisSizingMode =
+      data.direction === "VERTICAL" ? "FIXED" : "AUTO";
+  }
 
   frame.paddingTop = data.space.top;
   frame.paddingRight = data.space.right;
@@ -53,6 +62,7 @@ figma.ui.onmessage = async msg => {
       // ADD CHILDREN ONE BY ONE TO THE NEW FRAME
       let sortedNodes = sortNodesByPosition(node);
       sortedNodes.map(item => {
+        console.log(item.width);
         frame.appendChild(item);
       });
 
@@ -67,7 +77,7 @@ figma.ui.onmessage = async msg => {
     } else if (node.length === 1 && node[0].type === "FRAME") {
       if (node[0].layoutMode !== "NONE") {
         let frame = node[0];
-        setCompositionProps(frame, msg.data);
+        setCompositionProps(frame, msg.data, true);
       }
     } else {
       log.error("Please select at least two blocks");
