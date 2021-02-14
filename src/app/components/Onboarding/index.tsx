@@ -18,7 +18,7 @@ const slidesList = [
     title: null,
     children: (
       <p style={{ fontWeight: 600 }}>
-        Create and adjust muliple autolayouts as composition configuration.
+        Create and adjust multiple autolayouts as composition configuration.
       </p>
     )
   } as CardProps,
@@ -28,7 +28,7 @@ const slidesList = [
     children: (
       <>
         <p>
-          If you use the same spacers between certein components or elements.
+          If you use the same spacers between certain components or elements.
         </p>
         <p>
           If you have a team and want it to use and apply composition rules in a
@@ -37,6 +37,22 @@ const slidesList = [
         <p>
           If you have multiple projects with different spacer setting and want
           to keep all in consistency.
+        </p>
+      </>
+    )
+  } as CardProps,
+  {
+    imageUrl: null,
+    title: "How it works",
+    children: (
+      <>
+        <p>
+          The plugin works in the same way as sharable styles in Figma. But the
+          plugin stores these styles as a JSON file.
+        </p>
+        <p>
+          You can add so many compositions as you want and save them separately
+          as a compositions configuration.
         </p>
       </>
     )
@@ -60,13 +76,13 @@ const slidesList = [
     children: (
       <>
         <p>
-          Hook names is a string that will be applyed as an auto-layout layer
+          Hook names is a string that will be applied as an auto-layout layer
           name.
         </p>
         <p>
           This is important to have distinguish and unique names for each
           composition, because only with this condition the plugin will be able
-          sucessfuly update multiple composition automatically.
+          successfully update multiple composition automatically.
         </p>
       </>
     )
@@ -77,8 +93,8 @@ const slidesList = [
     children: (
       <>
         <p>
-          If you used the plugin before and setted up all compositions, each
-          type of composition will have a specific name.
+          If you used the plugin before and adjusted all compositions, each type
+          of composition will have a specific name.
         </p>
         <p>
           Clicking on the “Update all by hooks” button the plugin will go
@@ -95,7 +111,7 @@ const slidesList = [
       <>
         <p>
           Each composition can be locked if you want to make your work with the
-          plugin more sefty.
+          plugin more safely.
         </p>
       </>
     )
