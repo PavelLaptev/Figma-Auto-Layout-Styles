@@ -153,7 +153,7 @@ const slidesList = [
         <p>
           <a target="_blank" href="http://paypal.me/pavellaptev">
             Support the plugin
-          </a>{" "}
+          </a>
         </p>
       </>
     )
