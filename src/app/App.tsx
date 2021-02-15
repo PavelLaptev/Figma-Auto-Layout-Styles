@@ -19,8 +19,8 @@ const App = ({}) => {
   const [appKey, setAppKey] = React.useState(getRandomKey());
   const [config, setConfig] = React.useState({
     about: {
-      version: "1.0.0",
-      name: "Alteos Selling Flow"
+      version: "1.0.3",
+      name: "My Autolayout Config"
     },
     compositions: [
       {

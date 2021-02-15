@@ -101,7 +101,7 @@ figma.ui.onmessage = async msg => {
             setCompositionProps(compositionFrame, compositionData);
           });
         } else {
-          log.warn(`no compositions on the page "${page.name}"`);
+          log.neutral(`no matches on "${page.name}" page`);
         }
       });
     });

@@ -19,32 +19,32 @@ const Input: React.FunctionComponent<Props> = props => {
     props.onChange(e);
   };
 
-  const InputComp = () => {
-    return (
-      <input
-        disabled={props.disabled}
-        min={0}
-        className={`${styles.input} ${
-          props.darkStyle ? styles.darkStyle : styles.lightStyle
-        }`}
-        type={props.type}
-        value={val}
-        onChange={handleInputChange}
-      />
-    );
-  };
-
-  const TextAreaComp = () => {
-    return (
-      <textarea
-        disabled={props.disabled}
-        className={`${styles.input} ${styles.textarea} ${
-          props.darkStyle ? styles.darkStyle : styles.lightStyle
-        }`}
-        onChange={handleInputChange}
-        value={val}
-      />
-    );
+  const returnInputComponent = () => {
+    if (props.type === "textarea") {
+      return (
+        <textarea
+          disabled={props.disabled}
+          className={`${styles.input} ${styles.textarea} ${
+            props.darkStyle ? styles.darkStyle : styles.lightStyle
+          }`}
+          onChange={handleInputChange}
+          value={val}
+        />
+      );
+    } else {
+      return (
+        <input
+          disabled={props.disabled}
+          min={0}
+          className={`${styles.input} ${
+            props.darkStyle ? styles.darkStyle : styles.lightStyle
+          }`}
+          type={props.type}
+          value={val}
+          onChange={handleInputChange}
+        />
+      );
+    }
   };
 
   return (
@@ -52,7 +52,7 @@ const Input: React.FunctionComponent<Props> = props => {
       {props.label ? (
         <label className={styles.label}>{props.label}</label>
       ) : null}
-      {props.type === "textarea" ? <TextAreaComp /> : <InputComp />}
+      {returnInputComponent()}
     </div>
   );
 };
