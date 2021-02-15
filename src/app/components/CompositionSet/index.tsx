@@ -93,10 +93,12 @@ const CompositionSet: React.FunctionComponent<Props> = props => {
           selected={data.direction === "VERTICAL" ? 0 : 1}
           buttons={[
             {
-              icon: "toDown"
+              icon: "toDown",
+              tooltip: "vertical"
             },
             {
-              icon: "toRight"
+              icon: "toRight",
+              tooltip: "horizontal"
             }
           ]}
           onClick={i => {

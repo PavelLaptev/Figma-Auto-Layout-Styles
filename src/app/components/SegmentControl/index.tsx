@@ -5,6 +5,7 @@ import Button from "../Button";
 interface ButtonProps {
   icon?: string;
   text?: string;
+  tooltip?: string;
 }
 
 interface Props {
@@ -37,6 +38,11 @@ const SegmentControl: React.FunctionComponent<Props> = props => {
               className={styles.button}
               icon={button.icon}
               iconWidth
+              tooltip={
+                button.tooltip
+                  ? { text: button.tooltip, position: "center" }
+                  : null
+              }
               lightStyle={selected === i ? false : true}
               onClick={() => handleClick(i)}
             />
