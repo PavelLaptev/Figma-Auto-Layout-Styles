@@ -2,7 +2,9 @@
 
 ![Cover](cover.png)
 
-#### The plugin brings an experience of Figma styles to the auto-layout feature. You can make separate configurations of auto-layouts, save and load them, lock or change at any time.
+### The plugin brings an experience of Figma styles to the auto-layout feature. You can make separate configurations of auto-layouts, save and load them, lock or change at any time.
+
+---
 
 ## 🤔 When do I need it?
 
