@@ -98,8 +98,8 @@ const slidesList = [
         </p>
         <p>
           Clicking on the “Update all by hooks” button the plugin will go
-          through all compositions on all file pages and apply compositions
-          styles from you configuration.
+          through all compositions on the page and apply compositions styles
+          from you configuration.
         </p>
       </>
     )

@@ -43,7 +43,7 @@ This is important to have distinguish and unique names for each composition, bec
 
 If you used the plugin before and adjusted all compositions, each type of composition will have a specific name.
 
-Clicking on the “Update all by hooks” button the plugin will go through all compositions on all file pages and apply compositions styles from you configuration.
+Clicking on the “Update all by hooks” button the plugin will go through all compositions on the page and apply compositions styles from you configuration.
 
 ---
 

@@ -86,24 +86,17 @@ figma.ui.onmessage = async msg => {
 
   // UPDTE ALLL BY HOOKS
   if (msg.type === "update-all") {
-    let showMessageState = false;
-    let allPages = figma.root.children;
+    let page = figma.currentPage;
 
-    allPages.map(page => {
-      msg.data.compositions.map(compositionData => {
-        let compositions = page.findAll(
-          n => n.name === compositionData.hookName
-        );
-        if (compositions.length > 0) {
-          showMessageState ? false : log.success(`Updating all compositions`);
-          showMessageState = true;
-          compositions.map(compositionFrame => {
-            setCompositionProps(compositionFrame, compositionData);
-          });
-        } else {
-          log.neutral(`no matches on "${page.name}" page`);
-        }
-      });
+    msg.data.compositions.map(compositionData => {
+      log.success(`Updating all compositions`);
+      let compositions = page.findAll(n => n.name === compositionData.hookName);
+
+      if (compositions.length !== 0) {
+        compositions.map(compositionFrame => {
+          setCompositionProps(compositionFrame, compositionData);
+        });
+      }
     });
   }
 };
