@@ -74,17 +74,17 @@ figma.ui.onmessage = async msg => {
       //////////////////////////////////////////////////
     } else if (
       (node.length === 1 && node[0].type === "FRAME") ||
-      (node.length === 1 && node[0].type === "COMPONENT") ||
-      (node.length === 1 && node[0].type === "INSTANCE")
+      (node.length === 1 && node[0].type === "COMPONENT")
     ) {
       if (node[0].layoutMode !== "NONE") {
         let frame = node[0];
-        console.log(node[0]);
 
         setCompositionProps(frame, msg.data, true);
       }
+    } else if (node.length === 1 && node[0].type === "INSTANCE") {
+      log.warn("Please select the master component", true, 4000);
     } else {
-      log.error("Please select at least two blocks");
+      log.error("Please select at least two blocks", true, 4000);
     }
   }
 
@@ -93,7 +93,7 @@ figma.ui.onmessage = async msg => {
     let page = figma.currentPage;
 
     msg.data.compositions.map(compositionData => {
-      log.success(`Updating all compositions`);
+      log.success(`Updating all compositions`, true, 2000);
       let compositions = page.findAll(n => n.name === compositionData.hookName);
 
       if (compositions.length !== 0) {
