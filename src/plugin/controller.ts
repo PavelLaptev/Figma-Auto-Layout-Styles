@@ -38,8 +38,6 @@ figma.ui.onmessage = async msg => {
 
   // UPDATE ON BY ONE
   if (msg.type === "apply-composition") {
-    // console.log(msg.data);
-
     //////////////////////////////////////////////////
     /////// IF SELECTED MORE THAN TWO ELEMENTS ///////
     //////////////////////////////////////////////////
@@ -74,9 +72,15 @@ figma.ui.onmessage = async msg => {
       //////////////////////////////////////////////////
       ///// IF SELECTED ONE FRAME WITH AUTO-LAYOUT /////
       //////////////////////////////////////////////////
-    } else if (node.length === 1 && node[0].type === "FRAME") {
+    } else if (
+      (node.length === 1 && node[0].type === "FRAME") ||
+      (node.length === 1 && node[0].type === "COMPONENT") ||
+      (node.length === 1 && node[0].type === "INSTANCE")
+    ) {
       if (node[0].layoutMode !== "NONE") {
         let frame = node[0];
+        console.log(node[0]);
+
         setCompositionProps(frame, msg.data, true);
       }
     } else {
