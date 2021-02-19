@@ -150,6 +150,12 @@ const App = ({}) => {
     );
   };
 
+  const handleKeyPress = e => {
+    if (e.charCode === 13) {
+      e.target.blur();
+    }
+  };
+
   //////////////////////////////////////////////
   /////////////////// RENDER ///////////////////
   //////////////////////////////////////////////
@@ -169,7 +175,7 @@ const App = ({}) => {
             setToggleInfo(!toggleInfo);
           }}
         />
-        <div key={appKey}>
+        <div key={appKey} onKeyPress={handleKeyPress}>
           <div className={styles.header}>
             <Input
               className={`${styles.title}`}

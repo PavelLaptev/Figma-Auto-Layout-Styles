@@ -14,9 +14,10 @@ figma.showUI(__html__, { width: 360, height: 600 });
 const setCompositionProps = (
   frame,
   data: CompositionTypes,
-  skipAxisMode: boolean = false
+  skipAxisMode: boolean = false,
+  rename: boolean = true
 ) => {
-  frame.name = `${data.hookName}`;
+  frame.name = rename ? `${data.hookName}` : frame.name;
   frame.layoutMode = data.direction;
 
   if (!skipAxisMode) {
@@ -94,11 +95,13 @@ figma.ui.onmessage = async msg => {
 
     msg.data.compositions.map(compositionData => {
       log.success(`Updating all compositions`, true, 2000);
-      let compositions = page.findAll(n => n.name === compositionData.hookName);
+      let compositions = page.findAll(n =>
+        n.name.includes(compositionData.hookName)
+      );
 
       if (compositions.length !== 0) {
         compositions.map(compositionFrame => {
-          setCompositionProps(compositionFrame, compositionData);
+          setCompositionProps(compositionFrame, compositionData, false, false);
         });
       }
     });

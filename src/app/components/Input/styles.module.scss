@@ -16,10 +16,13 @@
   padding: var(--spacer-m) var(--spacer-s);
   height: var(--control-height);
   width: 100%;
-  border: none;
+  border: 1px solid transparent;
   outline: none;
   border-radius: var(--radius-m);
   transition: all var(--hover-speed) ease;
+  // &:focus {
+  //   border: 1px solid var(--semi-dark-clr);
+  // }
   &:disabled {
     pointer-events: none;
   }
