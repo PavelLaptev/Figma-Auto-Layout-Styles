@@ -24,14 +24,14 @@ const slidesList = [
   } as CardProps,
   {
     imageUrl: null,
-    title: "When do I need it?",
+    title: "🤔  When do I need it?",
     children: (
       <>
         <p>
           If you use the same spacers between certain components or elements.
         </p>
         <p>
-          If you have a team and want it to use and apply composition rules in a
+          If you have a team and want it to use and apply layouts rules in a
           comfortable way.
         </p>
         <p>
@@ -43,7 +43,7 @@ const slidesList = [
   } as CardProps,
   {
     imageUrl: null,
-    title: "How it works",
+    title: "🧞‍♂️  How it works",
     children: (
       <>
         <p>
@@ -52,27 +52,27 @@ const slidesList = [
         </p>
         <p>
           You can add so many compositions as you want and save them separately
-          as a compositions configuration.
+          as a layouts configuration.
         </p>
       </>
     )
   } as CardProps,
   {
     imageUrl: null,
-    title: "How to use",
+    title: "🤖  How to use",
     children: (
       <>
         <p>
-          Before you will start to apply compositions, you need to select two or
-          more elements. Than click “Apply” button and plugin will automatically
-          apply auto-layout styles from the composition card.
+          Before you will start to apply layouts, you need to select two or more
+          elements. Than click “Apply” button and plugin will automatically
+          apply auto-layout styles from the plugin's layout card.
         </p>
       </>
     )
   } as CardProps,
   {
     imageUrl: null,
-    title: "Hook names",
+    title: "🪢  Hook names",
     children: (
       <>
         <p>
@@ -81,36 +81,36 @@ const slidesList = [
         </p>
         <p>
           This is important to have distinguish and unique names for each
-          composition, because only with this condition the plugin will be able
-          successfully update multiple composition automatically.
+          layout, because only with this condition the plugin will be able
+          successfully update multiple layouts automatically.
         </p>
       </>
     )
   } as CardProps,
   {
     imageUrl: null,
-    title: "Update all by hooks",
+    title: "💣  Update all by hooks",
     children: (
       <>
         <p>
-          If you used the plugin before and adjusted all compositions, each type
-          of composition will have a specific name.
+          If you used the plugin before and adjusted all layouts, each type of
+          layout will have a specific name.
         </p>
         <p>
           Clicking on the “Update all by hooks” button the plugin will go
-          through all compositions on the page and apply compositions styles
-          from you configuration.
+          through all compositions on the page and apply layouts styles from you
+          configuration.
         </p>
       </>
     )
   } as CardProps,
   {
     imageUrl: null,
-    title: "Lock composition",
+    title: "🔒  Lock composition",
     children: (
       <>
         <p>
-          Each composition can be locked if you want to make your work with the
+          Each layout can be locked if you want to make your work with the
           plugin more safely.
         </p>
       </>
@@ -118,11 +118,17 @@ const slidesList = [
   } as CardProps,
   {
     imageUrl: null,
-    title: "About",
+    title: "🔗  About & Links",
     children: (
       <>
         <p>Version 1.0.0</p>
         <Divider />
+        <p>
+          Demo video{" "}
+          <a target="_blank" href="https://youtu.be/vr8asHzyy30">
+            on YouTube
+          </a>
+        </p>
         <p>
           Project on{" "}
           <a
