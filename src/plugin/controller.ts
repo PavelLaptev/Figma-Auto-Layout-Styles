@@ -11,9 +11,9 @@ figma.showUI(__html__, { width: 360, height: 600 });
 ///////////////////////// ON MESSAGE ///////////////////////////
 ////////////////////////////////////////////////////////////////
 
-const setCompositionProps = (
+const setLayoutProps = (
   frame,
-  data: CompositionTypes,
+  data: LayoutTypes,
   skipAxisMode: boolean = false,
   rename: boolean = true
 ) => {
@@ -38,7 +38,7 @@ figma.ui.onmessage = async msg => {
   let node = figma.currentPage.selection;
 
   // UPDATE ON BY ONE
-  if (msg.type === "apply-composition") {
+  if (msg.type === "apply-layout") {
     //////////////////////////////////////////////////
     /////// IF SELECTED MORE THAN TWO ELEMENTS ///////
     //////////////////////////////////////////////////
@@ -56,18 +56,18 @@ figma.ui.onmessage = async msg => {
       frame.resize(group.width, group.height);
 
       // SET SPASING
-      setCompositionProps(frame, msg.data);
+      setLayoutProps(frame, msg.data);
 
       // ADD CHILDREN ONE BY ONE TO THE NEW FRAME
       let sortedNodes = sortNodesByPosition(node);
       sortedNodes.map(item => {
-        console.log(item.width);
+        // console.log(item.width);
         frame.appendChild(item);
       });
 
       // APPEND NEW FRAME TO THE SAME PAGE
       parentConteiner.appendChild(frame);
-      // FOCUS ON THE NEW COMPOSITION
+      // FOCUS ON THE NEW Layout
       figma.currentPage.selection = [frame];
 
       //////////////////////////////////////////////////
@@ -80,7 +80,7 @@ figma.ui.onmessage = async msg => {
       if (node[0].layoutMode !== "NONE") {
         let frame = node[0];
 
-        setCompositionProps(frame, msg.data, true);
+        setLayoutProps(frame, msg.data, true);
       }
     } else if (node.length === 1 && node[0].type === "INSTANCE") {
       log.warn("Please select the master component", true, 4000);
@@ -93,17 +93,19 @@ figma.ui.onmessage = async msg => {
   if (msg.type === "update-all") {
     let page = figma.currentPage;
 
-    msg.data.compositions.map(compositionData => {
-      log.success(`Updating all compositions`, true, 2000);
-      let compositions = page.findAll(n =>
-        n.name.includes(compositionData.hookName)
-      );
+    msg.data.layouts.map(LayoutData => {
+      log.success(`Updating all Layouts`, true, 2000);
+      let layouts = page.findAll(n => n.name.includes(LayoutData.hookName));
 
-      if (compositions.length !== 0) {
-        compositions.map(compositionFrame => {
-          setCompositionProps(compositionFrame, compositionData, false, false);
+      if (layouts.length !== 0) {
+        layouts.map(LayoutFrame => {
+          setLayoutProps(LayoutFrame, LayoutData, false, false);
         });
       }
     });
+  }
+
+  if (msg.type === "close-plugin") {
+    figma.closePlugin();
   }
 };

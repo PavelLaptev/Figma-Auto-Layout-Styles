@@ -1,4 +1,4 @@
-interface CompositionTypes {
+interface LayoutTypes {
   pluginID: string;
   name: string;
   direction: "VERTICAL" | "HORIZONTAL";
@@ -19,5 +19,5 @@ interface ConfigTypes {
     version: string;
     name: string;
   };
-  compositions: Array<CompositionTypes>;
+  layouts: Array<LayoutTypes>;
 }

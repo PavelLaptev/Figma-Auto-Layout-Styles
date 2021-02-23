@@ -18,7 +18,7 @@ const slidesList = [
     title: null,
     children: (
       <p style={{ fontWeight: 600 }}>
-        Create and adjust multiple autolayouts as composition configuration.
+        Create and adjust multiple autolayouts as Layout configuration.
       </p>
     )
   } as CardProps,
@@ -51,8 +51,8 @@ const slidesList = [
           plugin stores these styles as a JSON file.
         </p>
         <p>
-          You can add so many compositions as you want and save them separately
-          as a layouts configuration.
+          You can add so many Layouts as you want and save them separately as a
+          layouts configuration.
         </p>
       </>
     )
@@ -98,7 +98,7 @@ const slidesList = [
         </p>
         <p>
           Clicking on the “Update all by hooks” button the plugin will go
-          through all compositions on the page and apply layouts styles from you
+          through all Layouts on the page and apply layouts styles from you
           configuration.
         </p>
       </>
@@ -106,7 +106,7 @@ const slidesList = [
   } as CardProps,
   {
     imageUrl: null,
-    title: "🔒  Lock composition",
+    title: "🔒  Lock Layout",
     children: (
       <>
         <p>

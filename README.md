@@ -21,7 +21,7 @@
 ## 🧞‍♂️  How it works
 
 The plugin works in the same way as sharable styles in Figma. But the plugin stores these styles as a JSON file.
-You can add so many compositions as you want and save them separately as a layouts configuration.
+You can add so many layouts as you want and save them separately as a layouts configuration.
 
 ---
 
@@ -43,11 +43,11 @@ This is important to have distinguish and unique names for each layout, because 
 
 If you used the plugin before and adjusted all layouts, each type of layout will have a specific name.
 
-Clicking on the “Update all by hooks” button the plugin will go through all compositions on the page and apply layouts styles from you configuration.
+Clicking on the “Update all by hooks” button the plugin will go through all layouts on the page and apply layouts styles from you configuration.
 
 ---
 
-## 🔒  Lock composition
+## 🔒  Lock Layouts
 
 Each layout can be locked if you want to make your work with the plugin more safely.
 

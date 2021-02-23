@@ -5,14 +5,14 @@ interface Props {
   className?: string;
 }
 
-const CompositionBlock: React.FunctionComponent<Props> = props => {
+const LayoutCard: React.FunctionComponent<Props> = props => {
   return (
     <div className={`${styles.wrap} ${props.className}`}>{props.children}</div>
   );
 };
 
-CompositionBlock.defaultProps = {
+LayoutCard.defaultProps = {
   className: ""
 } as Partial<Props>;
 
-export default CompositionBlock;
+export default LayoutCard;

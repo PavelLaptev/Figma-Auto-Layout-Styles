@@ -4,8 +4,8 @@ import styles from "./app.module.scss";
 import { generateRandomID, downloadJSON, getRandomKey } from "../utils";
 
 import Button from "./components/Button";
-import CompositionCard from "./components/CompositionCard";
-import CompositionSet from "./components/CompositionSet";
+import LayoutCard from "./components/LayoutCard";
+import LayoutSet from "./components/LayoutSet";
 import Input from "./components/Input";
 import Divider from "./components/Divider";
 import Onboarding from "./components/Onboarding";
@@ -22,7 +22,7 @@ const App = ({}) => {
       version: "1.0.3",
       name: "My Autolayout Config"
     },
-    compositions: [
+    layouts: [
       {
         pluginID: getRandomKey(),
         name: "Small Layout",
@@ -37,7 +37,7 @@ const App = ({}) => {
           right: 0,
           between: 16
         }
-      } as CompositionTypes,
+      } as LayoutTypes,
       {
         pluginID: getRandomKey(),
         name: "Medium Layout",
@@ -52,13 +52,13 @@ const App = ({}) => {
           right: 0,
           between: 24
         }
-      } as CompositionTypes,
+      } as LayoutTypes,
       {
         pluginID: getRandomKey(),
         name: "Large Layout",
         direction: "VERTICAL",
         hookName: "🐻CompL",
-        description: "For large compositions - like blocks of components",
+        description: "For large Layouts - like blocks of components",
         lock: false,
         space: {
           top: 0,
@@ -67,7 +67,7 @@ const App = ({}) => {
           right: 0,
           between: 32
         }
-      } as CompositionTypes,
+      } as LayoutTypes,
       {
         pluginID: getRandomKey(),
         name: "Cards Layout",
@@ -82,22 +82,22 @@ const App = ({}) => {
           right: 0,
           between: 16
         }
-      } as CompositionTypes
+      } as LayoutTypes
     ]
   } as ConfigTypes);
 
   ///////////////////////////////////////////////
-  ///////////// ADD NEW COMPOSITION /////////////
+  ///////////// ADD NEW Layout /////////////
   ///////////////////////////////////////////////
   let uniqueID = generateRandomID();
-  const handleNewComposition = () => {
+  const handleNewLayout = () => {
     setConfig({
       ...config,
-      compositions: [
-        ...config.compositions,
+      layouts: [
+        ...config.layouts,
         {
           pluginID: getRandomKey(),
-          name: `New Composition ${uniqueID}`,
+          name: `New Layout ${uniqueID}`,
           direction: "VERTICAL",
           hookName: uniqueID,
           description: "Some text",
@@ -109,7 +109,7 @@ const App = ({}) => {
             right: 0,
             between: 32
           }
-        } as CompositionTypes
+        } as LayoutTypes
       ]
     });
   };
@@ -130,6 +130,20 @@ const App = ({}) => {
 
     reader.onload = () => {
       let result = JSON.parse(reader.result as string);
+      if (result.compositions) {
+        alert(
+          `Please rename "compositions" key in JSON file to "layouts" and try again. Sorry for inconvenience 🙏`
+        );
+        parent.postMessage(
+          {
+            pluginMessage: {
+              type: "close-plugin"
+            }
+          },
+          "*"
+        );
+      }
+
       setConfig(result);
       setAppKey(getRandomKey());
     };
@@ -188,7 +202,7 @@ const App = ({}) => {
                     name: e.target.value,
                     version: config.about.version
                   },
-                  compositions: config.compositions
+                  layouts: config.layouts
                 });
               }}
             />
@@ -217,9 +231,9 @@ const App = ({}) => {
 
           <Divider />
 
-          {config.compositions.map((item, i) => {
+          {config.layouts.map((item, i) => {
             return (
-              <CompositionSet
+              <LayoutSet
                 key={`${item.pluginID}`}
                 pluginID={item.pluginID}
                 name={item.name}
@@ -237,7 +251,7 @@ const App = ({}) => {
                 onRemove={() => {
                   setConfig({
                     ...config,
-                    compositions: config.compositions.filter(value => {
+                    layouts: config.layouts.filter(value => {
                       return value !== item;
                     })
                   });
@@ -245,36 +259,36 @@ const App = ({}) => {
                 onChange={data => {
                   // UPDATE THE STATE
                   // https://stackoverflow.com/questions/39889009/replace-object-in-array-on-react-state
-                  let updatedCompositions = config.compositions;
-                  // console.log(updatedCompositions[i]);
-                  updatedCompositions[i] = data;
+                  let updatedlayouts = config.layouts;
+                  // console.log(updatedLayouts[i]);
+                  updatedlayouts[i] = data;
 
                   setConfig({
                     ...config,
-                    compositions: updatedCompositions
+                    layouts: updatedlayouts
                   });
                 }}
               />
             );
           })}
-          <CompositionCard>
+          <LayoutCard>
             <Button
               icon="plus"
-              onClick={handleNewComposition}
-              tooltip={{ text: "add new composition", position: "center" }}
+              onClick={handleNewLayout}
+              tooltip={{ text: "add new Layout", position: "center" }}
             />
-          </CompositionCard>
+          </LayoutCard>
 
           <Divider />
 
-          <CompositionCard>
+          <LayoutCard>
             <Button
               icon="update"
               text="Update all by hooks"
               lightStyle
               onClick={handleUpdateAll}
             />
-          </CompositionCard>
+          </LayoutCard>
         </div>
       </div>
     </OnBoardProvider.Provider>

@@ -1,17 +1,17 @@
 import * as React from "react";
 import styles from "./styles.module.scss";
-import CompositionCard from "../CompositionCard";
+import LayoutCard from "../LayoutCard";
 import Button from "../Button";
 import SegmentControl from "../SegmentControl";
 import Input from "../Input";
 
-interface Props extends CompositionTypes {
+interface Props extends LayoutTypes {
   onApply?: () => void;
   onRemove?: () => void;
   onChange?: (data) => void;
 }
 
-const CompositionSet: React.FunctionComponent<Props> = props => {
+const LayoutSet: React.FunctionComponent<Props> = props => {
   const [data, setData] = React.useState({
     pluginID: props.pluginID,
     name: props.name,
@@ -26,14 +26,14 @@ const CompositionSet: React.FunctionComponent<Props> = props => {
       left: props.space.left,
       between: props.space.between
     }
-  } as CompositionTypes);
+  } as LayoutTypes);
 
   const handleApply = () => {
     parent.postMessage(
       {
         pluginMessage: {
-          type: "apply-composition",
-          data: data as CompositionTypes
+          type: "apply-layout",
+          data: data as LayoutTypes
         }
       },
       "*"
@@ -46,7 +46,7 @@ const CompositionSet: React.FunctionComponent<Props> = props => {
   };
 
   return (
-    <CompositionCard className={styles.card}>
+    <LayoutCard className={styles.card}>
       <div className={styles.header}>
         <Input
           disabled={data.lock}
@@ -57,7 +57,7 @@ const CompositionSet: React.FunctionComponent<Props> = props => {
             let newData = {
               ...data,
               name: e.target.value
-            } as CompositionTypes;
+            } as LayoutTypes;
             props.onChange(newData);
             setData(newData);
           }}
@@ -70,7 +70,7 @@ const CompositionSet: React.FunctionComponent<Props> = props => {
             let newData = {
               ...data,
               lock: !data.lock
-            } as CompositionTypes;
+            } as LayoutTypes;
             props.onChange(newData);
             setData(newData);
           }}
@@ -105,7 +105,7 @@ const CompositionSet: React.FunctionComponent<Props> = props => {
             let newData = {
               ...data,
               direction: i === 0 ? "VERTICAL" : "HORIZONTAL"
-            } as CompositionTypes;
+            } as LayoutTypes;
             props.onChange(newData);
             setData(newData);
           }}
@@ -126,7 +126,7 @@ const CompositionSet: React.FunctionComponent<Props> = props => {
                 left: data.space.left,
                 between: +e.target.value
               }
-            } as CompositionTypes;
+            } as LayoutTypes;
             props.onChange(newData);
             setData(newData);
           }}
@@ -150,7 +150,7 @@ const CompositionSet: React.FunctionComponent<Props> = props => {
                 left: data.space.left,
                 between: data.space.between
               }
-            } as CompositionTypes;
+            } as LayoutTypes;
             props.onChange(newData);
             setData(newData);
           }}
@@ -171,7 +171,7 @@ const CompositionSet: React.FunctionComponent<Props> = props => {
                 left: data.space.left,
                 between: data.space.between
               }
-            } as CompositionTypes;
+            } as LayoutTypes;
             props.onChange(newData);
             setData(newData);
           }}
@@ -192,7 +192,7 @@ const CompositionSet: React.FunctionComponent<Props> = props => {
                 left: data.space.left,
                 between: data.space.between
               }
-            } as CompositionTypes;
+            } as LayoutTypes;
             props.onChange(newData);
             setData(newData);
           }}
@@ -213,7 +213,7 @@ const CompositionSet: React.FunctionComponent<Props> = props => {
                 left: +e.target.value,
                 between: data.space.between
               }
-            } as CompositionTypes;
+            } as LayoutTypes;
             props.onChange(newData);
             setData(newData);
           }}
@@ -231,7 +231,7 @@ const CompositionSet: React.FunctionComponent<Props> = props => {
             let newData = {
               ...data,
               hookName: e.target.value
-            } as CompositionTypes;
+            } as LayoutTypes;
             props.onChange(newData);
             setData(newData);
           }}
@@ -249,7 +249,7 @@ const CompositionSet: React.FunctionComponent<Props> = props => {
             let newData = {
               ...data,
               description: e.target.value
-            } as CompositionTypes;
+            } as LayoutTypes;
             props.onChange(newData);
             setData(newData);
           }}
@@ -259,13 +259,13 @@ const CompositionSet: React.FunctionComponent<Props> = props => {
       <div className={styles.section}>
         <Button text="Apply" onClick={handleApply} />
       </div>
-    </CompositionCard>
+    </LayoutCard>
   );
 };
 
-CompositionSet.defaultProps = {
+LayoutSet.defaultProps = {
   onApply: () => {},
   onChange: () => {}
 } as Partial<Props>;
 
-export default CompositionSet;
+export default LayoutSet;
