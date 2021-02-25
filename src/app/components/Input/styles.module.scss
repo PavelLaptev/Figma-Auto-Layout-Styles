@@ -30,6 +30,9 @@
 
 .textarea {
   resize: vertical;
+  &::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 .lightStyle {

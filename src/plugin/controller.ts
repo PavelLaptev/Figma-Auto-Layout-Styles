@@ -22,9 +22,9 @@ const setLayoutProps = (
 
   if (!skipAxisMode) {
     frame.primaryAxisSizingMode =
-      data.direction === "HORIZONTAL" ? "FIXED" : "AUTO";
+      data.direction === "HORIZONTAL" ? frame.primaryAxisSizingMode : "AUTO";
     frame.counterAxisSizingMode =
-      data.direction === "VERTICAL" ? "FIXED" : "AUTO";
+      data.direction === "VERTICAL" ? frame.counterAxisSizingMode : "AUTO";
   }
 
   frame.paddingTop = data.space.top;
