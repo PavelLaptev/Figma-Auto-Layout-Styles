@@ -77,11 +77,8 @@ figma.ui.onmessage = async msg => {
       (node.length === 1 && node[0].type === "FRAME") ||
       (node.length === 1 && node[0].type === "COMPONENT")
     ) {
-      if (node[0].layoutMode !== "NONE") {
-        let frame = node[0];
-
-        setLayoutProps(frame, msg.data, true);
-      }
+      let frame = node[0];
+      setLayoutProps(frame, msg.data, true);
     } else if (node.length === 1 && node[0].type === "INSTANCE") {
       log.warn("Please select the master component", true, 4000);
     } else {
