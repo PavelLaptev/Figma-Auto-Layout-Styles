@@ -31,6 +31,12 @@ Before you will start to apply layouts, you need to select two or more elements.
 
 ---
 
+## 💾  Autosave feature
+
+The plugin uses Figma's plugin storage - so even if you closed the plugin without saving, all your changes will be there the next time you launch the plugin again.
+
+---
+
 ## 🪢  Hook names
 
 Hook names is a string that will be applied as an auto-layout layer name.
