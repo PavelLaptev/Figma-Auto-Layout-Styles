@@ -1,4 +1,5 @@
 import { log, sortNodesByPosition } from "../utils";
+import { configStorageKey } from "../shareable/variables";
 
 ////////////////////////////////////////////////////////////////
 ///////////////////////// UI CONFIG ////////////////////////////
@@ -6,6 +7,11 @@ import { log, sortNodesByPosition } from "../utils";
 
 // Show UI
 figma.showUI(__html__, { width: 360, height: 600 });
+
+figma.ui.postMessage({
+  type: configStorageKey,
+  data: figma.root.getPluginData(configStorageKey)
+});
 
 ////////////////////////////////////////////////////////////////
 ///////////////////////// ON MESSAGE ///////////////////////////
@@ -37,7 +43,12 @@ const setLayoutProps = (
 figma.ui.onmessage = async msg => {
   let node = figma.currentPage.selection;
 
-  // UPDATE ON BY ONE
+  // RECORD LAST UPLOADED CONFIG
+  if (msg.type === "record-config") {
+    figma.root.setPluginData(configStorageKey, JSON.stringify(msg.data));
+  }
+
+  // UPDATE ONE BY ONE
   if (msg.type === "apply-layout") {
     //////////////////////////////////////////////////
     /////// IF SELECTED MORE THAN TWO ELEMENTS ///////
@@ -100,9 +111,5 @@ figma.ui.onmessage = async msg => {
         });
       }
     });
-  }
-
-  if (msg.type === "close-plugin") {
-    figma.closePlugin();
   }
 };
