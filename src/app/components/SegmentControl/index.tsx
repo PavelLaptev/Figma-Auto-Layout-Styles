@@ -27,7 +27,9 @@ const SegmentControl: React.FunctionComponent<Props> = props => {
 
   return (
     <div className={`${styles.wrap} ${props.className}`}>
-      <label className={styles.label}>{props.label}</label>
+      {props.label ? (
+        <label className={styles.label}>{props.label}</label>
+      ) : null}
       <div className={styles.buttons}>
         {props.buttons.map((button, i) => {
           // console.log(button);
@@ -55,7 +57,7 @@ const SegmentControl: React.FunctionComponent<Props> = props => {
 
 SegmentControl.defaultProps = {
   className: "",
-  label: "Label",
+  label: null,
   buttons: [],
   disabled: false,
   selected: 0

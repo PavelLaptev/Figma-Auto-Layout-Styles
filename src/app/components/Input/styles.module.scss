@@ -1,8 +1,14 @@
 @import "../../styles/mixins";
 
 .wrap {
+  position: relative;
   display: flex;
   flex-direction: column;
+  &:hover {
+    .tooltip {
+      opacity: 1;
+    }
+  }
 }
 
 .label {
@@ -13,7 +19,7 @@
   font-family: "Inter", sans-serif;
   font-size: 12px;
   font-weight: 500;
-  padding: var(--spacer-m) var(--spacer-s);
+  padding: var(--spacer-s);
   height: var(--control-height);
   width: 100%;
   border: 1px solid transparent;
@@ -29,10 +35,10 @@
 }
 
 .textarea {
-  resize: vertical;
-  &::-webkit-scrollbar {
-    display: none;
-  }
+  resize: none;
+  padding-top: var(--spacer-m);
+  padding-bottom: var(--spacer-m);
+  min-height: var(--control-height);
 }
 
 .lightStyle {
@@ -47,4 +53,14 @@
   &:hover {
     background-color: var(--middle-clr);
   }
+}
+
+.icon {
+  position: absolute;
+  bottom: 4px;
+  left: 6px;
+}
+
+.withIcon {
+  padding-left: 30px;
 }

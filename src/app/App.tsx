@@ -25,9 +25,10 @@ const App = ({}) => {
         pluginID: getRandomKey(),
         name: "Small Layout",
         direction: "VERTICAL",
-        hookName: "🐶CompS",
-        description: "Some text",
+        hookName: "🐍051j",
+        description: "Description",
         lock: false,
+        fold: false,
         space: {
           top: 0,
           left: 0,
@@ -40,9 +41,10 @@ const App = ({}) => {
         pluginID: getRandomKey(),
         name: "Medium Layout",
         direction: "VERTICAL",
-        hookName: "🦊CompM",
-        description: "Some text",
+        hookName: "🐚rg4i",
+        description: "Description",
         lock: true,
+        fold: false,
         space: {
           top: 0,
           left: 0,
@@ -55,9 +57,10 @@ const App = ({}) => {
         pluginID: getRandomKey(),
         name: "Large Layout",
         direction: "VERTICAL",
-        hookName: "🐻CompL",
+        hookName: "🐸hn56",
         description: "For large Layouts - like blocks of components",
         lock: false,
+        fold: false,
         space: {
           top: 0,
           left: 0,
@@ -70,9 +73,10 @@ const App = ({}) => {
         pluginID: getRandomKey(),
         name: "Cards Layout",
         direction: "HORIZONTAL",
-        hookName: "🐭CardsLayout",
-        description: "This layout is for cards only.",
+        hookName: "🍞yh1d",
+        description: "This layout is for cards only",
         lock: false,
+        fold: false,
         space: {
           top: 0,
           left: 0,
@@ -241,8 +245,6 @@ const App = ({}) => {
           </a>
         </div>
 
-        <Divider />
-
         {config.layouts.map((item, i) => {
           return (
             <LayoutSet
@@ -253,6 +255,7 @@ const App = ({}) => {
               hookName={item.hookName}
               description={item.description}
               lock={item.lock}
+              fold={item.fold}
               space={{
                 top: item.space.top,
                 right: item.space.right,

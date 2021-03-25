@@ -6,7 +6,7 @@ import { configStorageKey } from "../shareable/variables";
 ////////////////////////////////////////////////////////////////
 
 // Show UI
-figma.showUI(__html__, { width: 360, height: 600 });
+figma.showUI(__html__, { width: 340, height: 600 });
 
 figma.ui.postMessage({
   type: configStorageKey,

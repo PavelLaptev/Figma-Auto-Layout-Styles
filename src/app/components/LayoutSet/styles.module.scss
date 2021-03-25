@@ -9,32 +9,44 @@
   &_name {
     input {
       font-weight: bold;
-      font-size: 14px;
     }
   }
-  button:last-child {
+  button {
     margin-left: var(--spacer-s);
   }
 }
 
 .section {
   display: flex;
-  margin-bottom: var(--spacer-s);
+  // margin-top: var(--spacer-s);
 }
 
 .input {
   flex: 1;
   margin-bottom: var(--spacer-m);
-  margin-right: var(--spacer-m);
+  margin-right: var(--spacer-s);
   &:last-child {
     margin-right: 0;
   }
 }
 
+.direction {
+  flex: inherit;
+}
+
+.spaceBetween {
+  flex: 0 1 80px;
+}
+
+.paddingsInput {
+  display: flex;
+  flex: 1;
+  position: relative;
+}
+
 .space {
   input {
-    font-size: 14px;
-    font-weight: 600;
+    font-weight: bold;
   }
 }
 

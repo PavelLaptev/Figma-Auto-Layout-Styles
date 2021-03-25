@@ -1,0 +1,27 @@
+.tooltip {
+  pointer-events: none;
+  position: absolute;
+  opacity: 0;
+  z-index: 99;
+  bottom: -24px;
+  color: var(--white-clr);
+  font-family: "Inter", sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1.2;
+  padding: var(--spacer-s);
+  background-color: var(--dark-clr);
+  border-radius: var(--radius-s);
+  width: max-content;
+  transition: all 0.1s ease;
+  &Left {
+    left: 0;
+  }
+  &Center {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  &Right {
+    right: 0;
+  }
+}

@@ -2,12 +2,15 @@
 // Please do not change this file!
 interface CssExports {
   card: string;
+  direction: string;
   header: string;
   header_name: string;
   input: string;
   newCard: string;
+  paddingsInput: string;
   section: string;
   space: string;
+  spaceBetween: string;
 }
 export const cssExports: CssExports;
 export default cssExports;

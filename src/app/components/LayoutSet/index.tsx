@@ -4,6 +4,7 @@ import LayoutCard from "../LayoutCard";
 import Button from "../Button";
 import SegmentControl from "../SegmentControl";
 import Input from "../Input";
+import Divider from "../Divider";
 
 interface Props extends LayoutTypes {
   onApply?: () => void;
@@ -19,6 +20,7 @@ const LayoutSet: React.FunctionComponent<Props> = props => {
     hookName: props.hookName,
     description: props.description,
     lock: props.lock,
+    fold: props.fold,
     space: {
       top: props.space.top,
       right: props.space.right,
@@ -63,6 +65,23 @@ const LayoutSet: React.FunctionComponent<Props> = props => {
           }}
         />
         <Button
+          icon={data.fold ? "unfold" : "fold"}
+          iconWidth
+          lightStyle={data.fold ? false : true}
+          onClick={() => {
+            let newData = {
+              ...data,
+              fold: !data.fold
+            } as LayoutTypes;
+            props.onChange(newData);
+            setData(newData);
+          }}
+          tooltip={{
+            text: data.fold ? "unfold" : "fold details",
+            position: "center"
+          }}
+        />
+        <Button
           icon={data.lock ? "lock" : "unlock"}
           iconWidth
           lightStyle={data.lock ? false : true}
@@ -87,18 +106,17 @@ const LayoutSet: React.FunctionComponent<Props> = props => {
 
       <div className={`${styles.section} ${styles.space}`}>
         <SegmentControl
-          className={styles.input}
-          label="Direction"
+          className={`${styles.input} ${styles.direction}`}
           disabled={data.lock ? true : false}
           selected={data.direction === "VERTICAL" ? 0 : 1}
           buttons={[
             {
               icon: "toDown",
-              tooltip: "vertical"
+              tooltip: "set by vertical"
             },
             {
               icon: "toRight",
-              tooltip: "horizontal"
+              tooltip: "set by horizontal"
             }
           ]}
           onClick={i => {
@@ -112,10 +130,11 @@ const LayoutSet: React.FunctionComponent<Props> = props => {
         />
         <Input
           disabled={data.lock}
-          className={styles.input}
+          className={`${styles.input} ${styles.spaceBetween}`}
           value={data.space.between}
-          label="Space between"
+          icon="space-between"
           type={"number"}
+          tooltip={{ text: "space between", position: "center" }}
           onChange={e => {
             let newData = {
               ...data,
@@ -131,101 +150,40 @@ const LayoutSet: React.FunctionComponent<Props> = props => {
             setData(newData);
           }}
         />
+        <div className={styles.paddingsInput}>
+          <Input
+            disabled={data.lock}
+            className={styles.input}
+            icon="paddings"
+            value={`${data.space.top}, ${data.space.right}, ${data.space.bottom}, ${data.space.left}`}
+            type={"text"}
+            tooltip={{ text: "align and paddings", position: "center" }}
+            onChange={e => {
+              let newData = {
+                ...data,
+                space: {
+                  top: +e.target.value,
+                  right: data.space.right,
+                  bottom: data.space.bottom,
+                  left: data.space.left,
+                  between: data.space.between
+                }
+              } as LayoutTypes;
+              props.onChange(newData);
+              setData(newData);
+            }}
+          />
+        </div>
       </div>
 
-      <div className={`${styles.section} ${styles.space}`}>
-        <Input
-          disabled={data.lock}
-          className={styles.input}
-          value={data.space.top}
-          label="Top"
-          type={"number"}
-          onChange={e => {
-            let newData = {
-              ...data,
-              space: {
-                top: +e.target.value,
-                right: data.space.right,
-                bottom: data.space.bottom,
-                left: data.space.left,
-                between: data.space.between
-              }
-            } as LayoutTypes;
-            props.onChange(newData);
-            setData(newData);
-          }}
-        />
-        <Input
-          disabled={data.lock}
-          className={styles.input}
-          value={data.space.right}
-          label="Right"
-          type={"number"}
-          onChange={e => {
-            let newData = {
-              ...data,
-              space: {
-                top: data.space.top,
-                right: +e.target.value,
-                bottom: data.space.bottom,
-                left: data.space.left,
-                between: data.space.between
-              }
-            } as LayoutTypes;
-            props.onChange(newData);
-            setData(newData);
-          }}
-        />
-        <Input
-          disabled={data.lock}
-          className={styles.input}
-          value={data.space.bottom}
-          label="Bottom"
-          type={"number"}
-          onChange={e => {
-            let newData = {
-              ...data,
-              space: {
-                top: data.space.top,
-                right: data.space.right,
-                bottom: +e.target.value,
-                left: data.space.left,
-                between: data.space.between
-              }
-            } as LayoutTypes;
-            props.onChange(newData);
-            setData(newData);
-          }}
-        />
-        <Input
-          disabled={data.lock}
-          className={styles.input}
-          value={data.space.left}
-          label="Left"
-          type={"number"}
-          onChange={e => {
-            let newData = {
-              ...data,
-              space: {
-                top: data.space.top,
-                right: data.space.right,
-                bottom: data.space.bottom,
-                left: +e.target.value,
-                between: data.space.between
-              }
-            } as LayoutTypes;
-            props.onChange(newData);
-            setData(newData);
-          }}
-        />
-      </div>
+      <Divider />
 
-      <div className={styles.section}>
+      <div style={{ display: "flex" }}>
         <Input
           disabled={data.lock}
           className={styles.input}
-          label="Hook Name"
           type={"text"}
+          tooltip={{ text: "hook name", position: "center" }}
           value={data.hookName}
           onChange={e => {
             let newData = {
@@ -242,8 +200,8 @@ const LayoutSet: React.FunctionComponent<Props> = props => {
         <Input
           disabled={data.lock}
           className={styles.input}
-          label="Description"
           type={"textarea"}
+          tooltip={{ text: "description", position: "center" }}
           value={data.description}
           onChange={e => {
             let newData = {
@@ -256,7 +214,7 @@ const LayoutSet: React.FunctionComponent<Props> = props => {
         />
       </div>
 
-      <div className={styles.section}>
+      <div style={{ marginTop: "4px", display: "flex" }}>
         <Button text="Apply" onClick={handleApply} />
       </div>
     </LayoutCard>

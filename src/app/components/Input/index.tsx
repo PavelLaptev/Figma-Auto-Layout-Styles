@@ -1,13 +1,23 @@
 import * as React from "react";
 import styles from "./styles.module.scss";
 
+import TextareaAutosize from "react-textarea-autosize";
+
+import Icon from "../Icon";
+import Tooltip from "../Tooltip";
+
 interface Props {
   className?: string;
   label?: string;
   value: any;
+  tooltip?: {
+    text: string;
+    position: "center" | "left" | "right";
+  };
   type?: "number" | "text" | "textarea";
   darkStyle?: boolean;
   disabled?: boolean;
+  icon?: string;
   onChange?: (e) => void;
 }
 
@@ -22,7 +32,9 @@ const Input: React.FunctionComponent<Props> = props => {
   const returnInputComponent = () => {
     if (props.type === "textarea") {
       return (
-        <textarea
+        <TextareaAutosize
+          minRows={1}
+          maxRows={4}
           disabled={props.disabled}
           className={`${styles.input} ${styles.textarea} ${
             props.darkStyle ? styles.darkStyle : styles.lightStyle
@@ -38,7 +50,7 @@ const Input: React.FunctionComponent<Props> = props => {
           min={0}
           className={`${styles.input} ${
             props.darkStyle ? styles.darkStyle : styles.lightStyle
-          }`}
+          } ${props.icon ? styles.withIcon : null}`}
           type={props.type}
           value={val}
           onChange={handleInputChange}
@@ -49,6 +61,14 @@ const Input: React.FunctionComponent<Props> = props => {
 
   return (
     <div className={`${styles.wrap} ${props.className} `}>
+      {props.tooltip ? (
+        <Tooltip
+          text={props.tooltip.text}
+          position={props.tooltip.position}
+          className={styles.tooltip}
+        />
+      ) : null}
+      {props.icon ? <Icon className={styles.icon} name={props.icon} /> : null}
       {props.label ? (
         <label className={styles.label}>{props.label}</label>
       ) : null}
@@ -62,8 +82,10 @@ Input.defaultProps = {
   type: "number",
   label: null,
   darkStyle: false,
-  onChange: () => {},
-  disabled: false
+
+  disabled: false,
+  icon: null,
+  onChange: () => {}
 } as Partial<Props>;
 
 export default Input;

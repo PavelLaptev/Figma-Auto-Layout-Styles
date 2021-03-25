@@ -2,6 +2,7 @@ import * as React from "react";
 import styles from "./styles.module.scss";
 
 import Icon from "../Icon";
+import Tooltip from "../Tooltip";
 
 interface Props {
   className?: any;
@@ -32,18 +33,6 @@ const Button: React.FunctionComponent<Props> = props => {
     props.onFileChange(e);
   };
 
-  const setPosition = () => {
-    if (props.tooltip.position === "left") {
-      return styles.tooltipLeft;
-    }
-    if (props.tooltip.position === "center") {
-      return styles.tooltipCenter;
-    }
-    if (props.tooltip.position === "right") {
-      return styles.tooltipRight;
-    }
-  };
-
   return (
     <button
       disabled={props.disabled}
@@ -63,9 +52,11 @@ const Button: React.FunctionComponent<Props> = props => {
       }}
     >
       {props.tooltip ? (
-        <div className={`${styles.tooltip} ${setPosition()}`}>
-          {props.tooltip.text}
-        </div>
+        <Tooltip
+          text={props.tooltip.text}
+          position={props.tooltip.position}
+          className={styles.tooltip}
+        />
       ) : null}
       {props.type === "file" ? (
         <input
@@ -88,6 +79,7 @@ Button.defaultProps = {
   text: null,
   icon: null,
   type: "button",
+  tooltip: null,
   iconWidth: false,
   fullWidth: false,
   lightStyle: false,

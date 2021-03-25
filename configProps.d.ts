@@ -5,6 +5,7 @@ interface LayoutTypes {
   hookName: string;
   description: string;
   lock: boolean;
+  fold: boolean;
   space: {
     top: number;
     right: number;
