@@ -29,6 +29,7 @@ const App = ({}) => {
         description: "Description",
         lock: false,
         fold: false,
+        primaryAxisAlignItems: "MIN",
         space: {
           top: 0,
           left: 0,
@@ -45,6 +46,7 @@ const App = ({}) => {
         description: "Description",
         lock: true,
         fold: false,
+        primaryAxisAlignItems: "MIN",
         space: {
           top: 0,
           left: 0,
@@ -61,28 +63,13 @@ const App = ({}) => {
         description: "For large Layouts - like blocks of components",
         lock: false,
         fold: false,
+        primaryAxisAlignItems: "MIN",
         space: {
           top: 0,
           left: 0,
           bottom: 0,
           right: 0,
           between: 32
-        }
-      } as LayoutTypes,
-      {
-        pluginID: getRandomKey(),
-        name: "Cards Layout",
-        direction: "HORIZONTAL",
-        hookName: "🍞yh1d",
-        description: "This layout is for cards only",
-        lock: false,
-        fold: false,
-        space: {
-          top: 0,
-          left: 0,
-          bottom: 0,
-          right: 0,
-          between: 16
         }
       } as LayoutTypes
     ]
@@ -106,6 +93,7 @@ const App = ({}) => {
           hookName: uniqueID,
           description: "Some text",
           lock: false,
+          primaryAxisAlignItems: "MIN",
           space: {
             top: 0,
             left: 0,
@@ -223,13 +211,13 @@ const App = ({}) => {
           <Button
             icon={"upload"}
             type="file"
-            iconWidth
+            contentWidth
             onFileChange={handleUploadConfigFile}
             tooltip={{ text: "add from folder", position: "center" }}
           />
           <Button
             icon={"save"}
-            iconWidth
+            contentWidth
             onClick={handleSaveConfigFile}
             tooltip={{ text: "save config", position: "center" }}
           />
@@ -239,13 +227,14 @@ const App = ({}) => {
           >
             <Button
               icon={"info"}
-              iconWidth
+              contentWidth
               tooltip={{ text: "how-to", position: "center" }}
             />
           </a>
         </div>
 
         {config.layouts.map((item, i) => {
+          console.log(item.primaryAxisAlignItems);
           return (
             <LayoutSet
               key={`${item.pluginID}`}
@@ -256,6 +245,7 @@ const App = ({}) => {
               description={item.description}
               lock={item.lock}
               fold={item.fold}
+              primaryAxisAlignItems={item.primaryAxisAlignItems}
               space={{
                 top: item.space.top,
                 right: item.space.right,

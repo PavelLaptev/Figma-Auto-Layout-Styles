@@ -2,15 +2,14 @@
   animation-name: newCard;
   animation-duration: 0.8s;
   animation-iteration-count: 1;
+  input {
+    font-weight: bold;
+  }
 }
 
 .header {
   display: flex;
-  &_name {
-    input {
-      font-weight: bold;
-    }
-  }
+  margin-bottom: var(--spacer-m);
   button {
     margin-left: var(--spacer-s);
   }
@@ -18,12 +17,12 @@
 
 .section {
   display: flex;
-  // margin-top: var(--spacer-s);
+  margin-bottom: var(--spacer-m);
+  justify-content: flex-start;
 }
 
 .input {
   flex: 1;
-  margin-bottom: var(--spacer-m);
   margin-right: var(--spacer-s);
   &:last-child {
     margin-right: 0;
@@ -35,19 +34,48 @@
 }
 
 .spaceBetween {
-  flex: 0 1 80px;
+  flex: 0 1 70px;
 }
 
-.paddingsInput {
+.adjustSection {
   display: flex;
-  flex: 1;
-  position: relative;
+  flex-direction: column;
+  border-radius: 8px;
+  padding: var(--spacer-m) var(--spacer-m);
+  border: 2px solid var(--middle-clr);
+  margin-bottom: var(--spacer-s);
+  &Title {
+    font-weight: bold;
+    margin-top: 4px;
+    margin-left: 4px;
+    margin-bottom: 12px;
+    font-size: 12px;
+  }
+  &Children {
+    display: flex;
+    flex: 1;
+  }
+}
+
+.inputButton {
+  span {
+    font-size: 12px;
+  }
 }
 
 .space {
+  flex-wrap: wrap;
+  .input {
+    margin-bottom: var(--spacer-m);
+  }
   input {
     font-weight: bold;
   }
+}
+
+.alignment {
+  display: flex;
+  flex-direction: column;
 }
 
 @keyframes newCard {

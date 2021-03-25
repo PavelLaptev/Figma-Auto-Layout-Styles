@@ -13,6 +13,25 @@ figma.ui.postMessage({
   data: figma.root.getPluginData(configStorageKey)
 });
 
+let mySelection = figma.currentPage.selection as any;
+
+mySelection.map(item => {
+  console.log({
+    counterAxisAlignItems: item.counterAxisAlignItems,
+    counterAxisSizingMode: item.counterAxisSizingMode,
+    primaryAxisSizingMode: item.primaryAxisSizingMode,
+    primaryAxisAlignItems: item.primaryAxisAlignItems,
+    paddingLeft: item.paddingLeft,
+    paddingRight: item.paddingRight,
+    paddingTop: item.paddingTop,
+    paddingBottom: item.paddingBottom,
+    itemSpacing: item.itemSpacing,
+    layoutMode: item.layoutMode,
+    layoutAlign: item.layoutAlign,
+    constrainProportions: item.constrainProportions
+  });
+});
+
 ////////////////////////////////////////////////////////////////
 ///////////////////////// ON MESSAGE ///////////////////////////
 ////////////////////////////////////////////////////////////////

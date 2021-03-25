@@ -6,6 +6,7 @@ interface LayoutTypes {
   description: string;
   lock: boolean;
   fold: boolean;
+  primaryAxisAlignItems: "MIN" | "CENTER" | "MAX" | "SPACE-BETWEEN";
   space: {
     top: number;
     right: number;

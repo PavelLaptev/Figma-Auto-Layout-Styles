@@ -11,8 +11,25 @@
 
 .button {
   margin-right: var(--spacer-s);
+  &:last-child {
+    margin-right: 0;
+  }
 }
 
 .label {
   @include label;
+}
+
+.fullWidth {
+  width: 100%;
+  &Button {
+    flex: 1;
+  }
+}
+
+.wrapButtons {
+  flex-wrap: wrap;
+  button {
+    margin-bottom: var(--spacer-s);
+  }
 }

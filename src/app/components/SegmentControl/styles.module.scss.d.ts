@@ -3,8 +3,11 @@
 interface CssExports {
   button: string;
   buttons: string;
+  fullWidth: string;
+  fullWidthButton: string;
   label: string;
   wrap: string;
+  wrapButtons: string;
 }
 export const cssExports: CssExports;
 export default cssExports;

@@ -10,7 +10,7 @@ interface Props {
   icon?: string;
   reference?: React.Ref<HTMLButtonElement>;
   type?: string;
-  iconWidth?: boolean;
+  contentWidth?: boolean;
   fullWidth?: boolean;
   lightStyle?: boolean;
   style?: React.CSSProperties;
@@ -33,6 +33,13 @@ const Button: React.FunctionComponent<Props> = props => {
     props.onFileChange(e);
   };
 
+  const getWidth = () => {
+    if (props.contentWidth) {
+      return "0 0 auto";
+    }
+    return "1";
+  };
+
   return (
     <button
       disabled={props.disabled}
@@ -46,7 +53,7 @@ const Button: React.FunctionComponent<Props> = props => {
       }`}
       ref={props.reference}
       style={{
-        flex: props.iconWidth && !props.fullWidth ? "0 1 auto" : "1",
+        flex: getWidth(),
         flexDirection: props.reverse ? "row-reverse" : "row",
         ...props.style
       }}
@@ -80,7 +87,7 @@ Button.defaultProps = {
   icon: null,
   type: "button",
   tooltip: null,
-  iconWidth: false,
+  contentWidth: false,
   fullWidth: false,
   lightStyle: false,
   style: {},

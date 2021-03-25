@@ -12,7 +12,27 @@ interface Props extends LayoutTypes {
   onChange?: (data) => void;
 }
 
+interface AdjustProps {
+  title?: string;
+  style?: React.CSSProperties;
+}
+
+const AdjustSection: React.FunctionComponent<AdjustProps> = props => {
+  return (
+    <div className={styles.adjustSection} style={props.style}>
+      {props.title ? (
+        <span className={styles.adjustSectionTitle}>{props.title}</span>
+      ) : null}
+      <div className={styles.adjustSectionChildren}>{props.children}</div>
+    </div>
+  );
+};
+
 const LayoutSet: React.FunctionComponent<Props> = props => {
+  const [togglePaddings, setTogglePaddings] = React.useState(false);
+  const [togglePrimaryAxistAlign, setTogglePrimaryAxistAlign] = React.useState(
+    false
+  );
   const [data, setData] = React.useState({
     pluginID: props.pluginID,
     name: props.name,
@@ -21,6 +41,7 @@ const LayoutSet: React.FunctionComponent<Props> = props => {
     description: props.description,
     lock: props.lock,
     fold: props.fold,
+    primaryAxisAlignItems: props.primaryAxisAlignItems,
     space: {
       top: props.space.top,
       right: props.space.right,
@@ -47,12 +68,27 @@ const LayoutSet: React.FunctionComponent<Props> = props => {
     props.onRemove();
   };
 
+  let setPrimaryAxist = () => {
+    if (data.primaryAxisAlignItems === "MIN") {
+      return 0;
+    }
+    if (data.primaryAxisAlignItems === "CENTER") {
+      return 1;
+    }
+    if (data.primaryAxisAlignItems === "MAX") {
+      return 2;
+    }
+    if (data.primaryAxisAlignItems === "SPACE-BETWEEN") {
+      return 3;
+    }
+  };
+
   return (
     <LayoutCard className={styles.card}>
       <div className={styles.header}>
         <Input
           disabled={data.lock}
-          className={`${styles.input} ${styles.header_name}`}
+          className={`${styles.input}`}
           type={"text"}
           value={data.name}
           onChange={e => {
@@ -66,7 +102,7 @@ const LayoutSet: React.FunctionComponent<Props> = props => {
         />
         <Button
           icon={data.fold ? "unfold" : "fold"}
-          iconWidth
+          contentWidth
           lightStyle={data.fold ? false : true}
           onClick={() => {
             let newData = {
@@ -77,13 +113,13 @@ const LayoutSet: React.FunctionComponent<Props> = props => {
             setData(newData);
           }}
           tooltip={{
-            text: data.fold ? "unfold" : "fold details",
+            text: data.fold ? "show details" : "hide details",
             position: "center"
           }}
         />
         <Button
           icon={data.lock ? "lock" : "unlock"}
-          iconWidth
+          contentWidth
           lightStyle={data.lock ? false : true}
           onClick={() => {
             let newData = {
@@ -97,7 +133,7 @@ const LayoutSet: React.FunctionComponent<Props> = props => {
         />
         <Button
           icon={"cross"}
-          iconWidth
+          contentWidth
           lightStyle
           onClick={handleRemove}
           tooltip={{ text: "remove", position: "center" }}
@@ -150,24 +186,203 @@ const LayoutSet: React.FunctionComponent<Props> = props => {
             setData(newData);
           }}
         />
-        <div className={styles.paddingsInput}>
+        <Button
+          className={`${styles.input} ${styles.inputButton}`}
+          reverse
+          contentWidth
+          lightStyle={togglePaddings ? false : true}
+          icon={"paddings"}
+          text={`${data.space.top}, ${data.space.right}, ${data.space.bottom}, ${data.space.left}`}
+          onClick={() => {
+            setTogglePaddings(!togglePaddings);
+          }}
+          tooltip={{ text: "paddings", position: "center" }}
+        />
+        <Button
+          className={styles.inputButton}
+          reverse
+          contentWidth
+          text={data.primaryAxisAlignItems}
+          icon={"align"}
+          lightStyle={togglePrimaryAxistAlign ? false : true}
+          onClick={() => {
+            setTogglePrimaryAxistAlign(!togglePrimaryAxistAlign);
+          }}
+          tooltip={{ text: "alignment", position: "center" }}
+        />
+      </div>
+
+      <AdjustSection
+        title="Primary axis alignment"
+        style={{ display: togglePrimaryAxistAlign ? "flex" : "none" }}
+      >
+        <SegmentControl
+          wrap
+          buttons={[
+            {
+              text: "DEFAULT"
+            },
+            {
+              text: "MIN"
+            },
+            {
+              text: "CENTER"
+            },
+            {
+              text: "MAX"
+            },
+            {
+              text: "SPACE-BETWEEN"
+            }
+          ]}
+          selected={setPrimaryAxist()}
+          onClick={i => {
+            let setPrimaryAxisAlign = () => {
+              if (i === 0) {
+                return "MIN";
+              }
+              if (i === 1) {
+                return "CENTER";
+              }
+              if (i === 2) {
+                return "MAX";
+              }
+              if (i === 3) {
+                return "SPACE-BETWEEN";
+              }
+            };
+            let newData = {
+              ...data,
+              primaryAxisAlignItems: setPrimaryAxisAlign()
+            } as LayoutTypes;
+            props.onChange(newData);
+            setData(newData);
+          }}
+        />
+      </AdjustSection>
+
+      <AdjustSection
+        title="Paddings"
+        style={{ display: togglePaddings ? "flex" : "none" }}
+      >
+        <Input
+          disabled={data.lock}
+          className={styles.input}
+          value={data.space.top}
+          label="Top"
+          type={"number"}
+          onChange={e => {
+            let newData = {
+              ...data,
+              space: {
+                top: +e.target.value,
+                right: data.space.right,
+                bottom: data.space.bottom,
+                left: data.space.left,
+                between: data.space.between
+              }
+            } as LayoutTypes;
+            props.onChange(newData);
+            setData(newData);
+          }}
+        />
+        <Input
+          disabled={data.lock}
+          className={styles.input}
+          value={data.space.right}
+          label="Right"
+          type={"number"}
+          onChange={e => {
+            let newData = {
+              ...data,
+              space: {
+                top: data.space.top,
+                right: +e.target.value,
+                bottom: data.space.bottom,
+                left: data.space.left,
+                between: data.space.between
+              }
+            } as LayoutTypes;
+            props.onChange(newData);
+            setData(newData);
+          }}
+        />
+        <Input
+          disabled={data.lock}
+          className={styles.input}
+          value={data.space.bottom}
+          label="Bottom"
+          type={"number"}
+          onChange={e => {
+            let newData = {
+              ...data,
+              space: {
+                top: data.space.top,
+                right: data.space.right,
+                bottom: +e.target.value,
+                left: data.space.left,
+                between: data.space.between
+              }
+            } as LayoutTypes;
+            props.onChange(newData);
+            setData(newData);
+          }}
+        />
+        <Input
+          disabled={data.lock}
+          className={styles.input}
+          value={data.space.left}
+          label="Left"
+          type={"number"}
+          onChange={e => {
+            let newData = {
+              ...data,
+              space: {
+                top: data.space.top,
+                right: data.space.right,
+                bottom: data.space.bottom,
+                left: +e.target.value,
+                between: data.space.between
+              }
+            } as LayoutTypes;
+            props.onChange(newData);
+            setData(newData);
+          }}
+        />
+      </AdjustSection>
+
+      <div style={{ display: data.fold ? "none" : "block" }}>
+        <Divider />
+
+        <div className={styles.section}>
           <Input
             disabled={data.lock}
             className={styles.input}
-            icon="paddings"
-            value={`${data.space.top}, ${data.space.right}, ${data.space.bottom}, ${data.space.left}`}
             type={"text"}
-            tooltip={{ text: "align and paddings", position: "center" }}
+            tooltip={{ text: "hook name", position: "center" }}
+            value={data.hookName}
             onChange={e => {
               let newData = {
                 ...data,
-                space: {
-                  top: +e.target.value,
-                  right: data.space.right,
-                  bottom: data.space.bottom,
-                  left: data.space.left,
-                  between: data.space.between
-                }
+                hookName: e.target.value
+              } as LayoutTypes;
+              props.onChange(newData);
+              setData(newData);
+            }}
+          />
+        </div>
+
+        <div className={styles.section}>
+          <Input
+            disabled={data.lock}
+            className={styles.input}
+            type={"textarea"}
+            tooltip={{ text: "description", position: "center" }}
+            value={data.description}
+            onChange={e => {
+              let newData = {
+                ...data,
+                description: e.target.value
               } as LayoutTypes;
               props.onChange(newData);
               setData(newData);
@@ -175,45 +390,6 @@ const LayoutSet: React.FunctionComponent<Props> = props => {
           />
         </div>
       </div>
-
-      <Divider />
-
-      <div style={{ display: "flex" }}>
-        <Input
-          disabled={data.lock}
-          className={styles.input}
-          type={"text"}
-          tooltip={{ text: "hook name", position: "center" }}
-          value={data.hookName}
-          onChange={e => {
-            let newData = {
-              ...data,
-              hookName: e.target.value
-            } as LayoutTypes;
-            props.onChange(newData);
-            setData(newData);
-          }}
-        />
-      </div>
-
-      <div className={styles.section}>
-        <Input
-          disabled={data.lock}
-          className={styles.input}
-          type={"textarea"}
-          tooltip={{ text: "description", position: "center" }}
-          value={data.description}
-          onChange={e => {
-            let newData = {
-              ...data,
-              description: e.target.value
-            } as LayoutTypes;
-            props.onChange(newData);
-            setData(newData);
-          }}
-        />
-      </div>
-
       <div style={{ marginTop: "4px", display: "flex" }}>
         <Button text="Apply" onClick={handleApply} />
       </div>

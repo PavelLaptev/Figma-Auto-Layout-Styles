@@ -1,6 +1,7 @@
 .button {
   position: relative;
   display: flex;
+  flex: none;
   justify-content: center;
   align-items: center;
   border: none;
@@ -41,7 +42,7 @@
   font-family: "Inter", sans-serif;
   font-style: normal;
   font-weight: 600;
-  font-size: 14px;
+  font-size: 12px;
   line-height: 1.2;
 }
 

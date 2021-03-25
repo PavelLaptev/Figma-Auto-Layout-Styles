@@ -15,6 +15,8 @@ interface Props {
   disabled?: boolean;
   onClick?: (e) => void;
   selected?: number;
+  fullWidth?: boolean;
+  wrap?: boolean;
 }
 
 const SegmentControl: React.FunctionComponent<Props> = props => {
@@ -26,20 +28,31 @@ const SegmentControl: React.FunctionComponent<Props> = props => {
   };
 
   return (
-    <div className={`${styles.wrap} ${props.className}`}>
+    <div
+      className={`${styles.wrap} ${props.className} ${
+        props.fullWidth ? styles.fullWidth : null
+      } `}
+    >
       {props.label ? (
         <label className={styles.label}>{props.label}</label>
       ) : null}
-      <div className={styles.buttons}>
+      <div
+        className={`${styles.buttons} ${
+          props.wrap ? styles.wrapButtons : null
+        }`}
+      >
         {props.buttons.map((button, i) => {
           // console.log(button);
           return (
             <Button
               key={`button${i}`}
               disabled={props.disabled}
-              className={styles.button}
+              text={button.text}
+              className={`${styles.button} ${
+                props.fullWidth ? styles.fullWidthButton : null
+              }`}
               icon={button.icon}
-              iconWidth
+              contentWidth
               tooltip={
                 button.tooltip
                   ? { text: button.tooltip, position: "center" }
@@ -58,9 +71,11 @@ const SegmentControl: React.FunctionComponent<Props> = props => {
 SegmentControl.defaultProps = {
   className: "",
   label: null,
+  text: null,
   buttons: [],
   disabled: false,
-  selected: 0
+  selected: 0,
+  fullWidth: false
 } as Partial<Props>;
 
 export default SegmentControl;
