@@ -37,6 +37,10 @@
   padding-top: var(--spacer-m);
   padding-bottom: var(--spacer-m);
   min-height: var(--control-height);
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 .lightStyle {
