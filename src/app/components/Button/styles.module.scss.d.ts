@@ -3,6 +3,7 @@
 interface CssExports {
   button: string;
   darkStyle: string;
+  disabled: string;
   icon: string;
   input: string;
   lightStyle: string;

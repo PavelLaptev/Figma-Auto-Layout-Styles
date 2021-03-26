@@ -17,7 +17,6 @@
 
 .section {
   display: flex;
-  margin-bottom: var(--spacer-m);
   justify-content: flex-start;
 }
 
@@ -71,11 +70,6 @@
   input {
     font-weight: bold;
   }
-}
-
-.alignment {
-  display: flex;
-  flex-direction: column;
 }
 
 @keyframes newCard {

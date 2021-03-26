@@ -6,30 +6,11 @@ import { configStorageKey } from "../shareable/variables";
 ////////////////////////////////////////////////////////////////
 
 // Show UI
-figma.showUI(__html__, { width: 340, height: 600 });
+figma.showUI(__html__, { width: 350, height: 540 });
 
 figma.ui.postMessage({
   type: configStorageKey,
   data: figma.root.getPluginData(configStorageKey)
-});
-
-let mySelection = figma.currentPage.selection as any;
-
-mySelection.map(item => {
-  console.log({
-    counterAxisAlignItems: item.counterAxisAlignItems,
-    counterAxisSizingMode: item.counterAxisSizingMode,
-    primaryAxisSizingMode: item.primaryAxisSizingMode,
-    primaryAxisAlignItems: item.primaryAxisAlignItems,
-    paddingLeft: item.paddingLeft,
-    paddingRight: item.paddingRight,
-    paddingTop: item.paddingTop,
-    paddingBottom: item.paddingBottom,
-    itemSpacing: item.itemSpacing,
-    layoutMode: item.layoutMode,
-    layoutAlign: item.layoutAlign,
-    constrainProportions: item.constrainProportions
-  });
 });
 
 ////////////////////////////////////////////////////////////////
@@ -63,6 +44,12 @@ figma.ui.onmessage = async msg => {
   let node = figma.currentPage.selection;
 
   // RECORD LAST UPLOADED CONFIG
+  if (msg.type === "clear-stoorage") {
+    figma.root.setPluginData(configStorageKey, "");
+    figma.notify("👻 Storage cleared");
+  }
+
+  // RECORD LAST UPLOADED CONFIG
   if (msg.type === "record-config") {
     figma.root.setPluginData(configStorageKey, JSON.stringify(msg.data));
   }
@@ -91,7 +78,6 @@ figma.ui.onmessage = async msg => {
       // ADD CHILDREN ONE BY ONE TO THE NEW FRAME
       let sortedNodes = sortNodesByPosition(node);
       sortedNodes.map(item => {
-        // console.log(item.width);
         frame.appendChild(item);
       });
 
@@ -121,7 +107,7 @@ figma.ui.onmessage = async msg => {
     let page = figma.currentPage;
 
     msg.data.layouts.map(LayoutData => {
-      log.success(`Updating all Layouts`, true, 2000);
+      log.success(`Updating all layouts`, true, 2000);
       let layouts = page.findAll(n => n.name.includes(LayoutData.hookName));
 
       if (layouts.length !== 0) {

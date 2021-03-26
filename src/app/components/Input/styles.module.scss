@@ -26,12 +26,10 @@
   outline: none;
   border-radius: var(--radius-m);
   transition: all var(--hover-speed) ease;
-  // &:focus {
-  //   border: 1px solid var(--semi-dark-clr);
-  // }
-  &:disabled {
-    pointer-events: none;
-  }
+}
+
+.disabled {
+  @include disabled;
 }
 
 .textarea {

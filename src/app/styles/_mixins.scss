@@ -7,3 +7,8 @@
   font-size: 12px;
   margin-bottom: var(--spacer-m);
 }
+
+@mixin disabled {
+  opacity: 0.7;
+  pointer-events: none;
+}

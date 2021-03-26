@@ -46,9 +46,8 @@ const Input: React.FunctionComponent<Props> = props => {
     } else {
       return (
         <input
-          disabled={props.disabled}
           min={0}
-          className={`${styles.input} ${
+          className={`${styles.input}  ${
             props.darkStyle ? styles.darkStyle : styles.lightStyle
           } ${props.icon ? styles.withIcon : null}`}
           type={props.type}
@@ -60,7 +59,11 @@ const Input: React.FunctionComponent<Props> = props => {
   };
 
   return (
-    <div className={`${styles.wrap} ${props.className} `}>
+    <div
+      className={`${styles.wrap} ${props.className} ${
+        props.disabled ? styles.disabled : null
+      }`}
+    >
       {props.tooltip ? (
         <Tooltip
           text={props.tooltip.text}

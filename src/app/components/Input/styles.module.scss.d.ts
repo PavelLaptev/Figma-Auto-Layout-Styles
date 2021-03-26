@@ -2,6 +2,7 @@
 // Please do not change this file!
 interface CssExports {
   darkStyle: string;
+  disabled: string;
   icon: string;
   input: string;
   label: string;

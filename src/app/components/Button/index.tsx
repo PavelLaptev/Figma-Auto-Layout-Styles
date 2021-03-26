@@ -11,7 +11,6 @@ interface Props {
   reference?: React.Ref<HTMLButtonElement>;
   type?: string;
   contentWidth?: boolean;
-  fullWidth?: boolean;
   lightStyle?: boolean;
   style?: React.CSSProperties;
   disabled?: boolean;
@@ -42,15 +41,14 @@ const Button: React.FunctionComponent<Props> = props => {
 
   return (
     <button
-      disabled={props.disabled}
       onClick={props.onClick}
       onBlur={props.onBlur}
       onMouseUp={props.onMouseUp}
       onMouseDown={props.onMouseDown}
       onFocus={props.onFocus}
-      className={`${styles.button} ${props.className} ${
-        props.lightStyle ? styles.darkStyle : styles.lightStyle
-      }`}
+      className={`${styles.button} ${props.disabled ? styles.disabled : null} ${
+        props.className
+      } ${props.lightStyle ? styles.darkStyle : styles.lightStyle}`}
       ref={props.reference}
       style={{
         flex: getWidth(),
@@ -88,7 +86,6 @@ Button.defaultProps = {
   type: "button",
   tooltip: null,
   contentWidth: false,
-  fullWidth: false,
   lightStyle: false,
   style: {},
   disabled: false,

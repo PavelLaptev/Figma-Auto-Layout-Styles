@@ -2,6 +2,8 @@
   position: relative;
   overflow-x: hidden;
   padding: calc(var(--spacer-m) * 2);
+  display: flex;
+  flex-direction: column;
 }
 
 .header {

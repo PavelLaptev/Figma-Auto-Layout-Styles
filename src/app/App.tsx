@@ -1,7 +1,12 @@
 import * as React from "react";
 import styles from "./app.module.scss";
 
-import { generateRandomID, downloadJSON, getRandomKey } from "../utils";
+import {
+  generateRandomID,
+  downloadJSON,
+  getRandomKey,
+  checkAndUpdateStructure
+} from "../utils";
 import { configStorageKey } from "../shareable/variables";
 
 import Button from "./components/Button";
@@ -17,19 +22,18 @@ const App = ({}) => {
   const [appKey, setAppKey] = React.useState(getRandomKey());
   const [config, setConfig] = React.useState({
     about: {
-      version: "1.0.3",
+      version: "1.0.5",
       name: "My Config"
     },
     layouts: [
       {
-        pluginID: getRandomKey(),
+        pluginID: "01",
         name: "Small Layout",
         direction: "VERTICAL",
         hookName: "🐍051j",
-        description: "Description",
+        description: "For text elements",
         lock: false,
         fold: false,
-        primaryAxisAlignItems: "MIN",
         space: {
           top: 0,
           left: 0,
@@ -39,14 +43,13 @@ const App = ({}) => {
         }
       } as LayoutTypes,
       {
-        pluginID: getRandomKey(),
+        pluginID: "02",
         name: "Medium Layout",
         direction: "VERTICAL",
         hookName: "🐚rg4i",
-        description: "Description",
+        description: "For medium layouts - between components",
         lock: true,
         fold: false,
-        primaryAxisAlignItems: "MIN",
         space: {
           top: 0,
           left: 0,
@@ -56,14 +59,13 @@ const App = ({}) => {
         }
       } as LayoutTypes,
       {
-        pluginID: getRandomKey(),
+        pluginID: "03",
         name: "Large Layout",
         direction: "VERTICAL",
         hookName: "🐸hn56",
-        description: "For large Layouts - like blocks of components",
+        description: "For components compositions",
         lock: false,
         fold: false,
-        primaryAxisAlignItems: "MIN",
         space: {
           top: 0,
           left: 0,
@@ -93,7 +95,7 @@ const App = ({}) => {
           hookName: uniqueID,
           description: "Some text",
           lock: false,
-          primaryAxisAlignItems: "MIN",
+          fold: false,
           space: {
             top: 0,
             left: 0,
@@ -137,10 +139,10 @@ const App = ({}) => {
 
     reader.onload = () => {
       let result = JSON.parse(reader.result as string);
+      let updatedStructureFile = checkAndUpdateStructure(result);
 
-      recordConfigToStorage(result);
-
-      setConfig(result);
+      recordConfigToStorage(updatedStructureFile);
+      setConfig(updatedStructureFile);
       setAppKey(getRandomKey());
     };
   };
@@ -154,6 +156,18 @@ const App = ({}) => {
         pluginMessage: {
           type: "update-all",
           data: config as ConfigTypes
+        }
+      },
+      "*"
+    );
+  };
+
+  const handleClearStorage = () => {
+    setAppKey(getRandomKey());
+    parent.postMessage(
+      {
+        pluginMessage: {
+          type: "clear-stoorage"
         }
       },
       "*"
@@ -189,114 +203,118 @@ const App = ({}) => {
   //////////////////////////////////////////////
 
   return (
-    <div className={styles.app}>
-      <div key={appKey} onKeyPress={handleKeyPress}>
-        <div className={styles.header}>
-          <Input
-            className={`${styles.title}`}
-            darkStyle
-            type="text"
-            value={config.about.name}
-            onChange={e => {
+    <div className={styles.app} key={appKey} onKeyPress={handleKeyPress}>
+      <div className={styles.header}>
+        <Input
+          className={`${styles.title}`}
+          darkStyle
+          type="text"
+          value={config.about.name}
+          onChange={e => {
+            setConfig({
+              about: {
+                name: e.target.value,
+                version: config.about.version
+              },
+              layouts: config.layouts
+            });
+            recordConfigToStorage(config);
+          }}
+        />
+        <Button
+          icon={"upload"}
+          type="file"
+          contentWidth
+          onFileChange={handleUploadConfigFile}
+          tooltip={{ text: "add from folder", position: "center" }}
+        />
+        <Button
+          icon={"save"}
+          contentWidth
+          onClick={handleSaveConfigFile}
+          tooltip={{ text: "save config", position: "center" }}
+        />
+        <a
+          href="https://github.com/PavelLaptev/Figma-Auto-Layout-Styles"
+          target="_blank"
+        >
+          <Button
+            icon={"info"}
+            contentWidth
+            tooltip={{ text: "how-to", position: "center" }}
+          />
+        </a>
+      </div>
+
+      {config.layouts.map((item, i) => {
+        return (
+          <LayoutSet
+            key={item.pluginID}
+            pluginID={item.pluginID}
+            name={item.name}
+            direction={item.direction}
+            hookName={item.hookName}
+            description={item.description}
+            lock={item.lock}
+            fold={item.fold}
+            space={{
+              top: item.space.top,
+              right: item.space.right,
+              bottom: item.space.bottom,
+              left: item.space.left,
+              between: item.space.between
+            }}
+            onRemove={() => {
               setConfig({
-                about: {
-                  name: e.target.value,
-                  version: config.about.version
-                },
-                layouts: config.layouts
+                ...config,
+                layouts: config.layouts.filter(value => {
+                  return value !== item;
+                })
+              });
+              recordConfigToStorage(config);
+            }}
+            onChange={data => {
+              // UPDATE THE STATE
+              // https://stackoverflow.com/questions/39889009/replace-object-in-array-on-react-state
+              let updatedlayouts = config.layouts;
+              // console.log(updatedLayouts[i]);
+              updatedlayouts[i] = data;
+
+              setConfig({
+                ...config,
+                layouts: updatedlayouts
               });
               recordConfigToStorage(config);
             }}
           />
-          <Button
-            icon={"upload"}
-            type="file"
-            contentWidth
-            onFileChange={handleUploadConfigFile}
-            tooltip={{ text: "add from folder", position: "center" }}
-          />
-          <Button
-            icon={"save"}
-            contentWidth
-            onClick={handleSaveConfigFile}
-            tooltip={{ text: "save config", position: "center" }}
-          />
-          <a
-            href="https://github.com/PavelLaptev/Figma-Auto-Layout-Styles"
-            target="_blank"
-          >
-            <Button
-              icon={"info"}
-              contentWidth
-              tooltip={{ text: "how-to", position: "center" }}
-            />
-          </a>
-        </div>
+        );
+      })}
+      <LayoutCard>
+        <Button
+          icon="plus"
+          onClick={handleNewLayout}
+          tooltip={{ text: "add new Layout", position: "center" }}
+        />
+      </LayoutCard>
 
-        {config.layouts.map((item, i) => {
-          console.log(item.primaryAxisAlignItems);
-          return (
-            <LayoutSet
-              key={`${item.pluginID}`}
-              pluginID={item.pluginID}
-              name={item.name}
-              direction={item.direction}
-              hookName={item.hookName}
-              description={item.description}
-              lock={item.lock}
-              fold={item.fold}
-              primaryAxisAlignItems={item.primaryAxisAlignItems}
-              space={{
-                top: item.space.top,
-                right: item.space.right,
-                bottom: item.space.bottom,
-                left: item.space.left,
-                between: item.space.between
-              }}
-              onRemove={() => {
-                setConfig({
-                  ...config,
-                  layouts: config.layouts.filter(value => {
-                    return value !== item;
-                  })
-                });
-                recordConfigToStorage(config);
-              }}
-              onChange={data => {
-                // UPDATE THE STATE
-                // https://stackoverflow.com/questions/39889009/replace-object-in-array-on-react-state
-                let updatedlayouts = config.layouts;
-                // console.log(updatedLayouts[i]);
-                updatedlayouts[i] = data;
+      <Divider />
 
-                setConfig({
-                  ...config,
-                  layouts: updatedlayouts
-                });
-                recordConfigToStorage(config);
-              }}
-            />
-          );
-        })}
-        <LayoutCard>
-          <Button
-            icon="plus"
-            onClick={handleNewLayout}
-            tooltip={{ text: "add new Layout", position: "center" }}
-          />
-        </LayoutCard>
+      <LayoutCard>
+        <Button
+          icon="update"
+          text="Update all by hooks"
+          lightStyle
+          onClick={handleUpdateAll}
+        />
+      </LayoutCard>
 
-        <Divider />
+      <Divider />
 
-        <LayoutCard>
-          <Button
-            icon="update"
-            text="Update all by hooks"
-            lightStyle
-            onClick={handleUpdateAll}
-          />
-        </LayoutCard>
-      </div>
+      <Button
+        icon="bin"
+        text="Clear plugin storage"
+        onClick={handleClearStorage}
+      />
     </div>
   );
 };

@@ -4,7 +4,6 @@ interface CssExports {
   adjustSection: string;
   adjustSectionChildren: string;
   adjustSectionTitle: string;
-  alignment: string;
   card: string;
   direction: string;
   header: string;

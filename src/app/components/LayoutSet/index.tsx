@@ -4,7 +4,6 @@ import LayoutCard from "../LayoutCard";
 import Button from "../Button";
 import SegmentControl from "../SegmentControl";
 import Input from "../Input";
-import Divider from "../Divider";
 
 interface Props extends LayoutTypes {
   onApply?: () => void;
@@ -30,9 +29,6 @@ const AdjustSection: React.FunctionComponent<AdjustProps> = props => {
 
 const LayoutSet: React.FunctionComponent<Props> = props => {
   const [togglePaddings, setTogglePaddings] = React.useState(false);
-  const [togglePrimaryAxistAlign, setTogglePrimaryAxistAlign] = React.useState(
-    false
-  );
   const [data, setData] = React.useState({
     pluginID: props.pluginID,
     name: props.name,
@@ -41,7 +37,6 @@ const LayoutSet: React.FunctionComponent<Props> = props => {
     description: props.description,
     lock: props.lock,
     fold: props.fold,
-    primaryAxisAlignItems: props.primaryAxisAlignItems,
     space: {
       top: props.space.top,
       right: props.space.right,
@@ -66,21 +61,6 @@ const LayoutSet: React.FunctionComponent<Props> = props => {
 
   const handleRemove = () => {
     props.onRemove();
-  };
-
-  let setPrimaryAxist = () => {
-    if (data.primaryAxisAlignItems === "MIN") {
-      return 0;
-    }
-    if (data.primaryAxisAlignItems === "CENTER") {
-      return 1;
-    }
-    if (data.primaryAxisAlignItems === "MAX") {
-      return 2;
-    }
-    if (data.primaryAxisAlignItems === "SPACE-BETWEEN") {
-      return 3;
-    }
   };
 
   return (
@@ -189,6 +169,7 @@ const LayoutSet: React.FunctionComponent<Props> = props => {
         <Button
           className={`${styles.input} ${styles.inputButton}`}
           reverse
+          disabled={data.lock ? true : false}
           contentWidth
           lightStyle={togglePaddings ? false : true}
           icon={"paddings"}
@@ -198,68 +179,7 @@ const LayoutSet: React.FunctionComponent<Props> = props => {
           }}
           tooltip={{ text: "paddings", position: "center" }}
         />
-        <Button
-          className={styles.inputButton}
-          reverse
-          contentWidth
-          text={data.primaryAxisAlignItems}
-          icon={"align"}
-          lightStyle={togglePrimaryAxistAlign ? false : true}
-          onClick={() => {
-            setTogglePrimaryAxistAlign(!togglePrimaryAxistAlign);
-          }}
-          tooltip={{ text: "alignment", position: "center" }}
-        />
       </div>
-
-      <AdjustSection
-        title="Primary axis alignment"
-        style={{ display: togglePrimaryAxistAlign ? "flex" : "none" }}
-      >
-        <SegmentControl
-          wrap
-          buttons={[
-            {
-              text: "DEFAULT"
-            },
-            {
-              text: "MIN"
-            },
-            {
-              text: "CENTER"
-            },
-            {
-              text: "MAX"
-            },
-            {
-              text: "SPACE-BETWEEN"
-            }
-          ]}
-          selected={setPrimaryAxist()}
-          onClick={i => {
-            let setPrimaryAxisAlign = () => {
-              if (i === 0) {
-                return "MIN";
-              }
-              if (i === 1) {
-                return "CENTER";
-              }
-              if (i === 2) {
-                return "MAX";
-              }
-              if (i === 3) {
-                return "SPACE-BETWEEN";
-              }
-            };
-            let newData = {
-              ...data,
-              primaryAxisAlignItems: setPrimaryAxisAlign()
-            } as LayoutTypes;
-            props.onChange(newData);
-            setData(newData);
-          }}
-        />
-      </AdjustSection>
 
       <AdjustSection
         title="Paddings"
@@ -352,8 +272,6 @@ const LayoutSet: React.FunctionComponent<Props> = props => {
       </AdjustSection>
 
       <div style={{ display: data.fold ? "none" : "block" }}>
-        <Divider />
-
         <div className={styles.section}>
           <Input
             disabled={data.lock}
@@ -390,7 +308,7 @@ const LayoutSet: React.FunctionComponent<Props> = props => {
           />
         </div>
       </div>
-      <div style={{ marginTop: "4px", display: "flex" }}>
+      <div style={{ marginTop: "8px", display: "flex" }}>
         <Button text="Apply" onClick={handleApply} />
       </div>
     </LayoutCard>

@@ -42,7 +42,6 @@ const SegmentControl: React.FunctionComponent<Props> = props => {
         }`}
       >
         {props.buttons.map((button, i) => {
-          // console.log(button);
           return (
             <Button
               key={`button${i}`}
