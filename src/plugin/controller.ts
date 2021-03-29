@@ -105,9 +105,9 @@ figma.ui.onmessage = async msg => {
   // UPDTE ALLL BY HOOKS
   if (msg.type === "update-all") {
     let page = figma.currentPage;
+    log.custom("🥁", "Updating all layouts", true, 2000);
 
     msg.data.layouts.map(LayoutData => {
-      log.success(`Updating all layouts`, true, 2000);
       let layouts = page.findAll(n => n.name.includes(LayoutData.hookName));
 
       if (layouts.length !== 0) {

@@ -83,8 +83,7 @@ const App = ({}) => {
 
   const handleNewLayout = () => {
     let uniqueID = generateRandomID();
-
-    setConfig({
+    let updatedLayput = {
       ...config,
       layouts: [
         ...config.layouts,
@@ -105,7 +104,10 @@ const App = ({}) => {
           }
         } as LayoutTypes
       ]
-    });
+    };
+
+    setConfig(updatedLayput);
+    recordConfigToStorage(updatedLayput);
   };
 
   ///////////////////////////////////////////////
@@ -265,13 +267,15 @@ const App = ({}) => {
               between: item.space.between
             }}
             onRemove={() => {
-              setConfig({
+              let updatedLayput = {
                 ...config,
                 layouts: config.layouts.filter(value => {
                   return value !== item;
                 })
-              });
-              recordConfigToStorage(config);
+              };
+
+              setConfig(updatedLayput);
+              recordConfigToStorage(updatedLayput);
             }}
             onChange={data => {
               // UPDATE THE STATE
@@ -279,12 +283,13 @@ const App = ({}) => {
               let updatedlayouts = config.layouts;
               // console.log(updatedLayouts[i]);
               updatedlayouts[i] = data;
-
-              setConfig({
+              let updatedConfig = {
                 ...config,
                 layouts: updatedlayouts
-              });
-              recordConfigToStorage(config);
+              };
+
+              setConfig(updatedConfig);
+              recordConfigToStorage(updatedConfig);
             }}
           />
         );

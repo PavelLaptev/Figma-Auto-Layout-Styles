@@ -58,6 +58,17 @@ const log = {
     figma.notify(`⛔️ ${text}`, {
       timeout: timer
     });
+  },
+  custom: (emoji, text, show = true, timer = logTime) => {
+    show
+      ? console.log(
+          `%c${text}`,
+          `background: rgba(128, 128, 128, 0.14);${logStyles}`
+        )
+      : false;
+    figma.notify(`${emoji} ${text}`, {
+      timeout: timer
+    });
   }
 };
 
