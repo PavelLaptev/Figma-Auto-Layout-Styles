@@ -19,3 +19,14 @@
     font-weight: bold;
   }
 }
+
+.autoapply {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.icon {
+  margin-right: calc(var(--spacer-m) * 1);
+}
