@@ -199,7 +199,17 @@ const App = ({}) => {
       if (event.data.pluginMessage.data && event.data.pluginMessage.type === configStorageKey) {
         let config = JSON.parse(event.data.pluginMessage.data)
         if (config.settings.autosave) {
-          handleUpdateAll()
+          setTimeout(() => {
+            parent.postMessage(
+              {
+                pluginMessage: {
+                  type: 'update-all',
+                  data: config as ConfigTypes,
+                },
+              },
+              '*'
+            )
+          }, 2000)
         }
         setConfig(config)
         setAppKey(getRandomKey())
@@ -247,7 +257,6 @@ const App = ({}) => {
       <Divider />
 
       <div className={styles.autoapply} onClick={toggleAutoApply}>
-        {console.log(config.settings.autosave)}
         {config.settings.autosave ? (
           <Icon className={styles.icon} name="check-unchecked"></Icon>
         ) : (
