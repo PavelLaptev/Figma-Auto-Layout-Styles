@@ -2,6 +2,7 @@
 // Please do not change this file!
 interface CssExports {
   'button': string;
+  'danger': string;
   'darkStyle': string;
   'disabled': string;
   'icon': string;

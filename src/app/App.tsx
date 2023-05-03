@@ -124,6 +124,9 @@ const App = ({}) => {
     )
   }
 
+  ///////////////////////////////////////////////
+  ///////////// TOGGLE AUTO APPLY ///////////////
+  ///////////////////////////////////////////////
   const toggleAutoApply = () => {
     config.settings.autosave = !config.settings.autosave
     let newconfig = { ...config }
@@ -180,6 +183,15 @@ const App = ({}) => {
       },
       '*'
     )
+  }
+
+  const deleteAllLayouts = () => {
+    let newconfig = {
+      ...config,
+      layouts: [],
+    }
+    setConfig(newconfig)
+    recordConfigToStorage(newconfig)
   }
 
   ///////////////////////////////////////////////
@@ -322,6 +334,10 @@ const App = ({}) => {
       <LayoutCard>
         <Button icon="plus" onClick={handleNewLayout} tooltip={{ text: 'add new Layout', position: 'center' }} />
       </LayoutCard>
+
+      <Divider />
+
+      <Button icon="bin" onClick={deleteAllLayouts} text="Delete all layouts" danger></Button>
 
       <Divider />
 

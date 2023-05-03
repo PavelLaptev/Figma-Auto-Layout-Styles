@@ -1,4 +1,4 @@
-@import "./font-face";
+@import './font-face';
 
 :root {
   //
@@ -7,6 +7,7 @@
   --middle-clr: #e2e5e5;
   --semi-dark-clr: #c5ced1;
   --dark-clr: #353738;
+  --danger: #c04c3d;
   //
   --radius-s: 4px;
   --radius-m: 8px;
@@ -39,7 +40,7 @@
 }
 
 body {
-  font-family: "Inter", sans-serif;
+  font-family: 'Inter', sans-serif;
   font-size: 12px;
   margin: 0;
   background-color: var(--light-clr);
