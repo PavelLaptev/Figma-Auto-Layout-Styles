@@ -1,4 +1,4 @@
-@import "../../styles/mixins";
+@import '../../styles/mixins';
 
 .button {
   position: relative;
@@ -37,11 +37,16 @@
   }
 }
 
+.danger {
+  color: var(--danger);
+  --dark-clr: var(--danger);
+}
+
 .text {
   user-select: none;
   margin: 0 4px;
   color: var(--primary-clr);
-  font-family: "Inter", sans-serif;
+  font-family: 'Inter', sans-serif;
   font-style: normal;
   font-weight: 600;
   font-size: 12px;

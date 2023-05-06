@@ -1,6 +1,6 @@
-import * as React from "react";
+import * as React from 'react'
 
-const iconcolor = "var(--dark-clr)";
+const iconcolor = 'var(--dark-clr)'
 
 const icons = {
   plus: (
@@ -35,11 +35,7 @@ const icons = {
   ),
   tick: (
     <>
-      <path
-        d="M15 7L9.66759 13.9806C9.27228 14.4981 8.4957 14.5057 8.09032 13.9961L5 10.1111"
-        stroke={iconcolor}
-        strokeWidth="2"
-      />
+      <path d="M15 7L9.66759 13.9806C9.27228 14.4981 8.4957 14.5057 8.09032 13.9961L5 10.1111" stroke={iconcolor} strokeWidth="2" />
     </>
   ),
   bin: (
@@ -53,20 +49,12 @@ const icons = {
   ),
   fold: (
     <>
-      <path
-        d="M15 8L10.5958 12.3011C10.2006 12.6871 9.56733 12.6795 9.18149 12.2842L5 8"
-        stroke={iconcolor}
-        strokeWidth="2"
-      />
+      <path d="M15 8L10.5958 12.3011C10.2006 12.6871 9.56733 12.6795 9.18149 12.2842L5 8" stroke={iconcolor} strokeWidth="2" />
     </>
   ),
   unfold: (
     <>
-      <path
-        d="M5 12L9.4042 7.69888C9.7994 7.31293 10.4327 7.32052 10.8185 7.71584L15 12"
-        stroke={iconcolor}
-        strokeWidth="2"
-      />
+      <path d="M5 12L9.4042 7.69888C9.7994 7.31293 10.4327 7.32052 10.8185 7.71584L15 12" stroke={iconcolor} strokeWidth="2" />
     </>
   ),
   lock: (
@@ -132,12 +120,7 @@ const icons = {
         d="M10 5C7.23858 5 5 7.23858 5 10C5 12.7614 7.23858 15 10 15C12.7614 15 15 12.7614 15 10C15 7.23858 12.7614 5 10 5ZM3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10C17 13.866 13.866 17 10 17C6.13401 17 3 13.866 3 10Z"
         fill={iconcolor}
       />
-      <path
-        fillRule="evenodd"
-        clipRule="evenodd"
-        d="M9 13V10H11V13H9Z"
-        fill={iconcolor}
-      />
+      <path fillRule="evenodd" clipRule="evenodd" d="M9 13V10H11V13H9Z" fill={iconcolor} />
       <path
         d="M11 8C11 8.55228 10.5523 9 10 9C9.44772 9 9 8.55228 9 8C9 7.44772 9.44772 7 10 7C10.5523 7 11 7.44772 11 8Z"
         fill={iconcolor}
@@ -171,26 +154,11 @@ const icons = {
       />
     </>
   ),
-  "space-between": (
+  'space-between': (
     <>
-      <path
-        fillRule="evenodd"
-        clipRule="evenodd"
-        d="M4 5H16C16 6.10457 15.1046 7 14 7H6C4.89543 7 4 6.10457 4 5Z"
-        fill={iconcolor}
-      />
-      <path
-        fillRule="evenodd"
-        clipRule="evenodd"
-        d="M4 15C4 13.8954 4.89543 13 6 13H14C15.1046 13 16 13.8954 16 15H4Z"
-        fill={iconcolor}
-      />
-      <path
-        fillRule="evenodd"
-        clipRule="evenodd"
-        d="M14 11H6V9H14V11Z"
-        fill={iconcolor}
-      />
+      <path fillRule="evenodd" clipRule="evenodd" d="M4 5H16C16 6.10457 15.1046 7 14 7H6C4.89543 7 4 6.10457 4 5Z" fill={iconcolor} />
+      <path fillRule="evenodd" clipRule="evenodd" d="M4 15C4 13.8954 4.89543 13 6 13H14C15.1046 13 16 13.8954 16 15H4Z" fill={iconcolor} />
+      <path fillRule="evenodd" clipRule="evenodd" d="M14 11H6V9H14V11Z" fill={iconcolor} />
     </>
   ),
   paddings: (
@@ -227,7 +195,23 @@ const icons = {
         strokeWidth="2"
       />
     </>
-  )
-};
+  ),
+  'check-unchecked': (
+    <>
+      <path
+        d="M15.8333 2.5H4.16667C3.72464 2.5 3.30072 2.67559 2.98816 2.98816C2.67559 3.30072 2.5 3.72464 2.5 4.16667V15.8333C2.5 16.2754 2.67559 16.6993 2.98816 17.0118C3.30072 17.3244 3.72464 17.5 4.16667 17.5H15.8333C16.2754 17.5 16.6993 17.3244 17.0118 17.0118C17.3244 16.6993 17.5 16.2754 17.5 15.8333V4.16667C17.5 3.72464 17.3244 3.30072 17.0118 2.98816C16.6993 2.67559 16.2754 2.5 15.8333 2.5ZM8.33333 14.1667L4.16667 10L5.34167 8.825L8.33333 11.8083L14.6583 5.48333L15.8333 6.66667L8.33333 14.1667Z"
+        fill={iconcolor}
+      />
+    </>
+  ),
+  'check-checked': (
+    <>
+      <path
+        d="M15.8333 4.16667V15.8333H4.16667V4.16667H15.8333ZM15.8333 2.5H4.16667C3.25 2.5 2.5 3.25 2.5 4.16667V15.8333C2.5 16.75 3.25 17.5 4.16667 17.5H15.8333C16.75 17.5 17.5 16.75 17.5 15.8333V4.16667C17.5 3.25 16.75 2.5 15.8333 2.5Z"
+        fill={iconcolor}
+      />
+    </>
+  ),
+}
 
-export default icons;
+export default icons
