@@ -3,9 +3,10 @@ import styles from "./styles.module.scss";
 
 interface Props {
   className?: string;
+  children: React.ReactNode;
 }
 
-const Tooltip: React.FunctionComponent<Props> = props => {
+const Tooltip: React.FunctionComponent<Props> = (props) => {
   return (
     <div className={`${styles.wrap} ${props.className}`}>{props.children}</div>
   );

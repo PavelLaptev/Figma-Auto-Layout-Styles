@@ -18,8 +18,13 @@ import Divider from "./components/Divider";
 ///////////////////////////////////////////////
 ///////////////// APPLICATION /////////////////
 ///////////////////////////////////////////////
+<<<<<<< Updated upstream
 const App = ({}) => {
   const [appKey, setAppKey] = React.useState(getRandomKey());
+=======
+const App = () => {
+  const [appKey, setAppKey] = React.useState(getRandomKey())
+>>>>>>> Stashed changes
   const [config, setConfig] = React.useState({
     about: {
       version: "1.0.5",
@@ -189,6 +194,7 @@ const App = ({}) => {
   ///////////////// USE EFFECT /////////////////
   //////////////////////////////////////////////
   React.useEffect(() => {
+<<<<<<< Updated upstream
     onmessage = event => {
       if (
         event.data.pluginMessage.data &&
@@ -196,6 +202,26 @@ const App = ({}) => {
       ) {
         setConfig(JSON.parse(event.data.pluginMessage.data));
         setAppKey(getRandomKey());
+=======
+    onmessage = (event) => {
+      if (event.data.pluginMessage.data && event.data.pluginMessage.type === configStorageKey) {
+        let config = JSON.parse(event.data.pluginMessage.data)
+        // if (config.settings.autosave) {
+        //   setTimeout(() => {
+        //     parent.postMessage(
+        //       {
+        //         pluginMessage: {
+        //           type: 'update-all',
+        //           data: config as ConfigTypes,
+        //         },
+        //       },
+        //       '*'
+        //     )
+        //   }, 2000)
+        // }
+        setConfig(config)
+        setAppKey(getRandomKey())
+>>>>>>> Stashed changes
       }
     };
   }, [appKey]);
@@ -280,9 +306,15 @@ const App = ({}) => {
             onChange={data => {
               // UPDATE THE STATE
               // https://stackoverflow.com/questions/39889009/replace-object-in-array-on-react-state
+<<<<<<< Updated upstream
               let updatedlayouts = config.layouts;
               // console.log(updatedLayouts[i]);
               updatedlayouts[i] = data;
+=======
+              let updatedlayouts = config.layouts
+
+              updatedlayouts[i] = data
+>>>>>>> Stashed changes
               let updatedConfig = {
                 ...config,
                 layouts: updatedlayouts
@@ -304,6 +336,7 @@ const App = ({}) => {
 
       <Divider />
 
+<<<<<<< Updated upstream
       <LayoutCard>
         <Button
           icon="update"
@@ -320,6 +353,12 @@ const App = ({}) => {
         text="Clear plugin storage"
         onClick={handleClearStorage}
       />
+=======
+      <section className={styles.buttonSections}>
+        <Button icon="bin" onClick={deleteAllLayouts} text="Delete all layouts" danger></Button>
+        <Button icon="bin" text="Clear plugin storage" onClick={handleClearStorage} />
+      </section>
+>>>>>>> Stashed changes
     </div>
   );
 };

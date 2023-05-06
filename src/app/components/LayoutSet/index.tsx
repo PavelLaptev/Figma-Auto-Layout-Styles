@@ -14,9 +14,10 @@ interface Props extends LayoutTypes {
 interface AdjustProps {
   title?: string;
   style?: React.CSSProperties;
+  children?: React.ReactNode;
 }
 
-const AdjustSection: React.FunctionComponent<AdjustProps> = props => {
+const AdjustSection: React.FunctionComponent<AdjustProps> = (props) => {
   return (
     <div className={styles.adjustSection} style={props.style}>
       {props.title ? (
@@ -27,7 +28,7 @@ const AdjustSection: React.FunctionComponent<AdjustProps> = props => {
   );
 };
 
-const LayoutSet: React.FunctionComponent<Props> = props => {
+const LayoutSet: React.FunctionComponent<Props> = (props) => {
   const [togglePaddings, setTogglePaddings] = React.useState(false);
   const [data, setData] = React.useState({
     pluginID: props.pluginID,
@@ -71,7 +72,7 @@ const LayoutSet: React.FunctionComponent<Props> = props => {
           className={`${styles.input}`}
           type={"text"}
           value={data.name}
-          onChange={e => {
+          onChange={(e) => {
             let newData = {
               ...data,
               name: e.target.value
@@ -135,7 +136,7 @@ const LayoutSet: React.FunctionComponent<Props> = props => {
               tooltip: "set by horizontal"
             }
           ]}
-          onClick={i => {
+          onClick={(i) => {
             let newData = {
               ...data,
               direction: i === 0 ? "VERTICAL" : "HORIZONTAL"
@@ -151,7 +152,7 @@ const LayoutSet: React.FunctionComponent<Props> = props => {
           icon="space-between"
           type={"number"}
           tooltip={{ text: "space between", position: "center" }}
-          onChange={e => {
+          onChange={(e) => {
             let newData = {
               ...data,
               space: {
@@ -191,7 +192,7 @@ const LayoutSet: React.FunctionComponent<Props> = props => {
           value={data.space.top}
           label="Top"
           type={"number"}
-          onChange={e => {
+          onChange={(e) => {
             let newData = {
               ...data,
               space: {
@@ -212,7 +213,7 @@ const LayoutSet: React.FunctionComponent<Props> = props => {
           value={data.space.right}
           label="Right"
           type={"number"}
-          onChange={e => {
+          onChange={(e) => {
             let newData = {
               ...data,
               space: {
@@ -233,7 +234,7 @@ const LayoutSet: React.FunctionComponent<Props> = props => {
           value={data.space.bottom}
           label="Bottom"
           type={"number"}
-          onChange={e => {
+          onChange={(e) => {
             let newData = {
               ...data,
               space: {
@@ -254,7 +255,7 @@ const LayoutSet: React.FunctionComponent<Props> = props => {
           value={data.space.left}
           label="Left"
           type={"number"}
-          onChange={e => {
+          onChange={(e) => {
             let newData = {
               ...data,
               space: {
@@ -279,7 +280,7 @@ const LayoutSet: React.FunctionComponent<Props> = props => {
             type={"text"}
             tooltip={{ text: "hook name", position: "center" }}
             value={data.hookName}
-            onChange={e => {
+            onChange={(e) => {
               let newData = {
                 ...data,
                 hookName: e.target.value
@@ -297,7 +298,7 @@ const LayoutSet: React.FunctionComponent<Props> = props => {
             type={"textarea"}
             tooltip={{ text: "description", position: "center" }}
             value={data.description}
-            onChange={e => {
+            onChange={(e) => {
               let newData = {
                 ...data,
                 description: e.target.value
