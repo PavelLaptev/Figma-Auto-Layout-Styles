@@ -1,5 +1,5 @@
 import { log, sortNodesByPosition } from "../utils";
-import { configStorageKey } from "../shareable/variables";
+import { configStorageKey, storageKey } from "../shareable/variables";
 
 ////////////////////////////////////////////////////////////////
 ///////////////////////// UI CONFIG ////////////////////////////
@@ -23,8 +23,8 @@ const setLayoutProps = (
   skipAxisMode: boolean = false,
   rename: boolean = true
 ) => {
-  frame.name = rename ? `${data.hookName}` : frame.name;
-  frame.layoutMode = data.direction;
+  frame.name = rename ? data.name : frame.name;
+  frame.setSharedPluginData(storageKey, "hookName", data.hookName);
 
   if (!skipAxisMode) {
     frame.primaryAxisSizingMode =
@@ -33,6 +33,7 @@ const setLayoutProps = (
       data.direction === "VERTICAL" ? frame.counterAxisSizingMode : "AUTO";
   }
 
+  frame.layoutMode = data.direction;
   frame.paddingTop = data.space.top;
   frame.paddingRight = data.space.right;
   frame.paddingBottom = data.space.bottom;
@@ -40,7 +41,7 @@ const setLayoutProps = (
   frame.itemSpacing = data.space.between;
 };
 
-figma.ui.onmessage = async msg => {
+figma.ui.onmessage = async (msg) => {
   let node = figma.currentPage.selection;
 
   // RECORD LAST UPLOADED CONFIG
@@ -77,7 +78,7 @@ figma.ui.onmessage = async msg => {
 
       // ADD CHILDREN ONE BY ONE TO THE NEW FRAME
       let sortedNodes = sortNodesByPosition(node);
-      sortedNodes.map(item => {
+      sortedNodes.map((item) => {
         frame.appendChild(item);
       });
 
@@ -104,17 +105,18 @@ figma.ui.onmessage = async msg => {
 
   // UPDTE ALLL BY HOOKS
   if (msg.type === "update-all") {
-    let page = figma.currentPage;
-    log.custom("🥁", "Updating all layouts", true, 2000);
+    console.log(figma.currentPage.selection[0]);
+    // let page = figma.currentPage;
+    // log.custom("🥁", "Updating all layouts", true, 2000);
 
-    msg.data.layouts.map(LayoutData => {
-      let layouts = page.findAll(n => n.name.includes(LayoutData.hookName));
+    // msg.data.layouts.map((LayoutData) => {
+    //   let layouts = page.findAll((n) => n.name.includes(LayoutData.hookName));
 
-      if (layouts.length !== 0) {
-        layouts.map(LayoutFrame => {
-          setLayoutProps(LayoutFrame, LayoutData, false, false);
-        });
-      }
-    });
+    //   if (layouts.length !== 0) {
+    //     layouts.map((LayoutFrame) => {
+    //       setLayoutProps(LayoutFrame, LayoutData, false, false);
+    //     });
+    //   }
+    // });
   }
 };

@@ -27,7 +27,6 @@ const App = ({ }) => {
     },
     layouts: [
       {
-        pluginID: "01",
         name: "Small Layout",
         direction: "VERTICAL",
         hookName: "🐍051j",
@@ -43,7 +42,6 @@ const App = ({ }) => {
         }
       } as LayoutTypes,
       {
-        pluginID: "02",
         name: "Medium Layout",
         direction: "VERTICAL",
         hookName: "🐚rg4i",
@@ -59,7 +57,6 @@ const App = ({ }) => {
         }
       } as LayoutTypes,
       {
-        pluginID: "03",
         name: "Large Layout",
         direction: "VERTICAL",
         hookName: "🐸hn56",
@@ -88,7 +85,6 @@ const App = ({ }) => {
       layouts: [
         ...config.layouts,
         {
-          pluginID: getRandomKey(),
           name: `New Layout ${uniqueID}`,
           direction: "VERTICAL",
           hookName: uniqueID,
@@ -251,8 +247,7 @@ const App = ({ }) => {
       {config.layouts.map((item, i) => {
         return (
           <LayoutSet
-            key={item.pluginID}
-            pluginID={item.pluginID}
+            key={i}
             name={item.name}
             direction={item.direction}
             hookName={item.hookName}

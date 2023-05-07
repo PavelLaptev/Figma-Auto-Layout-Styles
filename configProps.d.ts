@@ -1,5 +1,4 @@
 interface LayoutTypes {
-  pluginID: string;
   name: string;
   direction: "VERTICAL" | "HORIZONTAL";
   hookName: string;

@@ -31,7 +31,6 @@ const AdjustSection: React.FunctionComponent<AdjustProps> = (props) => {
 const LayoutSet: React.FunctionComponent<Props> = (props) => {
   const [togglePaddings, setTogglePaddings] = React.useState(false);
   const [data, setData] = React.useState({
-    pluginID: props.pluginID,
     name: props.name,
     direction: props.direction,
     hookName: props.hookName,
@@ -317,8 +316,8 @@ const LayoutSet: React.FunctionComponent<Props> = (props) => {
 };
 
 LayoutSet.defaultProps = {
-  onApply: () => {},
-  onChange: () => {}
+  onApply: () => { },
+  onChange: () => { }
 } as Partial<Props>;
 
 export default LayoutSet;
